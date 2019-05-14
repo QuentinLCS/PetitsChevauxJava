@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public abstract class Joueur {
 
     private String nom;
-    private Case caseDep;
+    private Case caseDeDepart;
     private ArrayList<Pion> chevaux;
     private Couleur couleur;
 
@@ -15,12 +15,12 @@ public abstract class Joueur {
         this.couleur=couleur;
     }
 
-    public Case getCaseDep() {
-        return caseDep;
+    public Case getCaseDeDepart() {
+        return caseDeDepart;
     }
 
-    public void setCaseDep(Case caseDep) {
-        this.caseDep = caseDep;
+    public void setCaseDeDepart(Case caseDeDepart) {
+        this.caseDeDepart = caseDeDepart;
     }
 
     public ArrayList<Pion> getChevaux() {
