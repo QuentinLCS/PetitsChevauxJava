@@ -27,7 +27,7 @@ public class Partie {
             catch (PasDeJoueurException e) {
             }
         } while (joueurs == null);
-
+        sc.close();
     }
 
     /**
@@ -71,6 +71,7 @@ public class Partie {
                         res = de;
                 }*/
             }
+            System.out.println("La partie peut débuter ! C'est "+joueurCourant.getNom()+" qui commence la partie !");
         }
     }
 
@@ -87,8 +88,17 @@ public class Partie {
     }
 
     public boolean estPartieTermine(){
-        //methode à completer ----> vérifier les règles
-        return true;
+        ArrayList<ArrayList<CaseDEchelle>> listeEchelles = getPlateau().getEchelles();
+        boolean victoire = true;
+        int i;
+        for (ArrayList<CaseDEchelle> echelle : listeEchelles ){
+            i=5;
+            while (i>1 && victoire==true){
+                victoire = echelle.get(i).getChevaux()!=null;
+                i--;
+            }
+        }
+        return victoire;
     }
 
     public Joueur getJoueurCourant() {
