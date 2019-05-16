@@ -121,13 +121,8 @@ public class Partie {
     private void mangerLesPions(Case cs){
         ArrayList<Pion> chevaux = cs.getChevaux();
         ArrayList<CaseEcurie> ecuries = getPlateau().getEcuries();
-        for (Pion pion:chevaux) {
-            for (CaseEcurie ecu:ecuries){
-                if (ecu.getCouleur()==pion.getCouleur()) {
-                    getPlateau().deplacerPionA(pion, ecu);
-                }
-                ecuries.indexOf(new CaseEcurie(chevaux.get(0).getCouleur()));
-            }
-        }
+        CaseEcurie ecu = ecuries.get(ecuries.indexOf(new CaseEcurie(chevaux.get(0).getCouleur())));
+        for (Pion pion:chevaux) getPlateau().deplacerPionA(pion, ecu);
     }
 }
+
