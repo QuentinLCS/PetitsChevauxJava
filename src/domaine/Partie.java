@@ -88,13 +88,15 @@ public class Partie {
 
     public boolean estPartieTermine(){
         ArrayList<ArrayList<CaseDEchelle>> listeEchelles = getPlateau().getEchelles();
-        boolean victoire = true;
+        boolean victoire = false;
         int i;
         for (ArrayList<CaseDEchelle> echelle : listeEchelles ){
             i=5;
-            while (i>1 && victoire==true){
-                victoire = echelle.get(i).getChevaux()!=null;
+            while (i>1 && echelle.get(i).getChevaux()!=null){
                 i--;
+            }
+            if (i==1){
+                victoire = true;
             }
         }
         return victoire;
