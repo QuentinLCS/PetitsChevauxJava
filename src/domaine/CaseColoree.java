@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public abstract class CaseColoree extends Case {
     private Couleur couleur;
 
-    public CaseColoree(ArrayList<Pion> chevaux) {
-        super(chevaux);
+    public CaseColoree(Couleur couleur) {
+        super();
     }
 
     public Couleur getCouleur() {

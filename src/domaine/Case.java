@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public abstract class Case {
     private ArrayList<Pion> chevaux;
 
-    public Case(ArrayList<Pion> chevaux) {
+    public Case() {
         this.chevaux = chevaux;
     }
 

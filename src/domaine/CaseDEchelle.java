@@ -3,8 +3,8 @@ package domaine;
 import java.util.ArrayList;
 
 public class CaseDEchelle extends CaseColoree {
-    public CaseDEchelle(ArrayList<Pion> chevaux) {
-        super(chevaux);
+    public CaseDEchelle(Couleur couleur) {
+        super(couleur);
     }
 
     @Override
