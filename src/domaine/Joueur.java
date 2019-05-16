@@ -1,5 +1,7 @@
 package domaine;
 
+import exceptions.ConflitDeCouleurException;
+
 import java.util.ArrayList;
 
 public abstract class Joueur {
@@ -39,5 +41,5 @@ public abstract class Joueur {
         this.nom = nom;
     }
 
-    public abstract Pion choisirPion (int num, Plateau plateau);
+    public abstract Pion choisirPion (int num, Plateau plateau) throws ConflitDeCouleurException;
 }

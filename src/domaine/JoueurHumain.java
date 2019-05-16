@@ -1,5 +1,7 @@
 package domaine;
 
+import exceptions.ConflitDeCouleurException;
+
 import java.util.ArrayList;
 
 public class JoueurHumain extends Joueur {
@@ -9,7 +11,7 @@ public class JoueurHumain extends Joueur {
     }
 
     @Override
-    public Pion choisirPion(int distance, Plateau plateau) {
+    public Pion choisirPion(int distance, Plateau plateau) throws ConflitDeCouleurException {
         ArrayList<Pion> chevauxDeplacables = new ArrayList<Pion>();
         byte i, nbChevauxVerifies = (byte)plateau.getEcuries().get(plateau.getEcuries().indexOf(new CaseEcurie(this.getCouleur()))).getChevaux().size();
         boolean continuer = true;
