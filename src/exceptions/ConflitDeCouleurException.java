@@ -1,7 +1,6 @@
 package exceptions;
 
 public class ConflitDeCouleurException extends Exception {
-    private String message = "La case contient une autre couleur que la votre.";
 
     public ConflitDeCouleurException() {
         super();

@@ -1,7 +1,5 @@
 package domaine;
 
-import java.util.ArrayList;
-
 public abstract class CaseColoree extends Case {
     private Couleur couleur;
 
@@ -10,7 +8,7 @@ public abstract class CaseColoree extends Case {
     }
 
     public Couleur getCouleur() {
-        return couleur;
+        return this.couleur;
     }
 
     public abstract boolean peutPasser(Pion cheval);

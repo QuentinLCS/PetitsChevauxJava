@@ -1,7 +1,6 @@
 package exceptions;
 
 public class CasePleineException extends Exception {
-    private String message = "La case est pleine, impossible d'ajouter un pion.";
 
     public CasePleineException() {
         super();

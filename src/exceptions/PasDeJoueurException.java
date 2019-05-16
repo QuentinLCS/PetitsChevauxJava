@@ -1,7 +1,6 @@
 package exceptions;
 
 public class PasDeJoueurException extends Exception {
-    private String message = "Pas de joueur.";
 
     public PasDeJoueurException() {
         super();
