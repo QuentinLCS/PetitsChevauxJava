@@ -1,17 +1,18 @@
 package domaine;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Plateau {
 
     private ArrayList<ArrayList<CaseDEchelle>> echelles;
-    private ArrayList<CaseDeChemin> chemin;
+    private LinkedList<CaseDeChemin> chemin;
     private ArrayList<CaseEcurie> ecuries;
 
     public Plateau() {
 
         this.echelles = new ArrayList<ArrayList<CaseDEchelle>>();
-        this.chemin = new ArrayList<CaseDeChemin>();
+        this.chemin = new LinkedList<CaseDeChemin>();
         this.ecuries = new ArrayList<CaseEcurie>();
 
         for (byte i = 0; i < 8; i++)
