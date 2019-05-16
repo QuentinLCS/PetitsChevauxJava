@@ -1,6 +1,5 @@
 package domaine;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class Plateau {
