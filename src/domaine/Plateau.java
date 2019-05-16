@@ -44,7 +44,7 @@ public class Plateau {
     public void afficher(){
         byte valEchelle;
         byte numCase = 0;
-        byte numEquipe = 0;
+        byte numEquipe;
 
         for (byte i = 0; i < 15; i++) {
 
