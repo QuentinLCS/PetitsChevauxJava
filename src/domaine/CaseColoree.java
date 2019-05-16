@@ -5,6 +5,7 @@ public abstract class CaseColoree extends Case {
 
     public CaseColoree(Couleur couleur) {
         super();
+        this.couleur = couleur;
     }
 
     public Couleur getCouleur() {

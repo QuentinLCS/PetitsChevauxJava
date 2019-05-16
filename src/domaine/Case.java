@@ -6,7 +6,7 @@ public abstract class Case {
     private ArrayList<Pion> chevaux;
 
     public Case() {
-        this.chevaux = chevaux;
+        this.chevaux = new ArrayList<Pion>();
     }
 
     public ArrayList<Pion> getChevaux() {
