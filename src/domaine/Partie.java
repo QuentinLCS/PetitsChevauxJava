@@ -23,7 +23,6 @@ public class Partie {
             try {
                 System.out.println("Veuillez entrer le nombre de joueurs de la partie (entre 1 et 4) : ");
                 int nb = sc.nextByte();
-                joueurs = new ArrayList<>(nb);
                 initialiserJoueurs(nb);
             }
             catch (InputMismatchException|PasDeJoueurException e) { continuer = true; sc.nextLine(); }
@@ -37,6 +36,7 @@ public class Partie {
      * @throws PasDeJoueurException dans le cas où un petit malin voudrait jouer sans joueur
      */
     public void initialiserJoueurs(int nbJoueur) throws PasDeJoueurException{
+        joueurs = new ArrayList<>(nbJoueur);
         if (nbJoueur<=0) throw new PasDeJoueurException();
         if (nbJoueur<=4) {
             Scanner sc = new Scanner(System.in);
