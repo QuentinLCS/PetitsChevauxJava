@@ -126,6 +126,7 @@ public class Partie {
                 if (ecu.getCouleur()==pion.getCouleur()) {
                     getPlateau().deplacerPionA(pion, ecu);
                 }
+                ecuries.indexOf(new CaseEcurie(chevaux.get(0).getCouleur()));
             }
         }
     }

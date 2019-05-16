@@ -5,15 +5,8 @@ public class CaseDeChemin extends Case {
         super();
     }
 
-    @Override
     public boolean peutPasser(Pion cheval) {
-        //TODO
-        return false;
+        return this.getChevaux().isEmpty() || cheval.getCouleur().equals(this.getChevaux().get(0).getCouleur());
     }
 
-    @Override
-    public boolean peutSArreter(Pion cheval) {
-        //TODO
-        return false;
-    }
 }

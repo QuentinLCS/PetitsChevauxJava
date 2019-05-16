@@ -17,7 +17,4 @@ public abstract class Case {
         chevaux.add(cheval);
     }
 
-    public abstract boolean peutPasser(Pion cheval);
-
-    public abstract boolean peutSArreter(Pion cheval);
 }

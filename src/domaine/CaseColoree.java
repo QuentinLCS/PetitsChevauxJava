@@ -12,7 +12,4 @@ public abstract class CaseColoree extends Case {
         return this.couleur;
     }
 
-    public abstract boolean peutPasser(Pion cheval);
-
-    public abstract boolean peutSArreter(Pion cheval);
 }
