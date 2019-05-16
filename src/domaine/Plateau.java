@@ -49,7 +49,7 @@ public class Plateau {
             for (byte k = 0; k < 3; k++) {
                 System.out.println();
                 for (byte j = 0; j < 15; j++) {
-                    indexCouleur = (byte)((i <= 7 ? 0 : 1) + i / 8 + j / 8 );
+                    indexCouleur = (byte)(i / 8 + j / 8 );
                     if ((i < 6 || i > 8) && (j < 6 || j > 8))
                         System.out.print(Couleur.values()[indexCouleur].getCodeCouleurFond()+ "            \033[0m");
 

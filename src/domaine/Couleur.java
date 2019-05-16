@@ -1,10 +1,10 @@
 package domaine;
 
 public enum Couleur {
-    JAUNE('J',"\033[7;43m","\033[103m"),
-    BLEU('B',"\033[7;44m","\033[104m"),
-    VERT('V',"\033[7;42m","\033[102m"),
-    ROUGE('R',"\033[7;41m","\033[101m");
+    JAUNE('J',"\033[93;107m","\033[1;97;43m"),
+    BLEU('B',"\033[94;107m","\033[1;97;104m"),
+    VERT('V',"\033[92;107m","\033[1;97;42m"),
+    ROUGE('R',"\033[91;107m","\033[1;97;101m");
 
     private char symbol;
     private String codeCouleur;
