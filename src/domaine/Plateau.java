@@ -3,12 +3,22 @@ package domaine;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * Class Plateau, contenant tous les nécessaires du plateau et de ses interactions.
+ * @author Quentin LECHASLES
+ */
 public class Plateau {
 
     private ArrayList<ArrayList<CaseDEchelle>> echelles;
     private LinkedList<CaseDeChemin> chemin;
     private ArrayList<CaseEcurie> ecuries;
 
+    /**
+     * Le constructeur de Plateau initialise :
+     * - chaque echelle de chaque joueur.
+     * - chaque caseDeChemin
+     * - ainsi que chaque caseEcurie.
+     */
     public Plateau() {
 
         this.echelles = new ArrayList<ArrayList<CaseDEchelle>>();
@@ -41,6 +51,9 @@ public class Plateau {
         return this.ecuries;
     }
 
+    /**
+     * Affichage en grande dimension, couleur du plateau et de ses interactions.
+     */
     public void afficher(){
         byte valEchelle;
         byte numCase = 0;
@@ -86,9 +99,14 @@ public class Plateau {
         }
     }
 
-    public void deplacerPionA(Pion p, Case c){
-        int pos=chemin.indexOf(p);
-        chemin.get(pos).getChevaux().remove(p);
-        c.ajouteCheval(p);
+    /**
+     * La fonction deplacerPionA permet de déplacer un pion sur une case choisie.
+     * @param pion Pion a déplacer.
+     * @param caseCible Case destination.
+     */
+    public void deplacerPionA(Pion pion, Case caseCible){
+        int pos=chemin.indexOf(pion);
+        chemin.get(pos).getChevaux().remove(pion);
+        caseCible.ajouteCheval(pion);
     }
 }

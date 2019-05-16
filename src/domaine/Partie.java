@@ -32,7 +32,7 @@ public class Partie {
 
     /**
      * Permet d'initialiser les instances de joueurs humains, leur assigne une couleur et choisir qui commence
-     * @param nbJoueur
+     * @param nbJoueur Nombre de joueurs renseignés par le joueur dans le constructeur.
      * @throws PasDeJoueurException dans le cas où un petit malin voudrait jouer sans joueur
      */
     public void initialiserJoueurs(int nbJoueur) throws PasDeJoueurException{
@@ -83,7 +83,7 @@ public class Partie {
     }
 
     public void jouerUnTour(){
-        //TODO : methode à completer
+        //TODO : methode à completer, réflexive ?
     }
 
     public boolean estPartieTermine(){
