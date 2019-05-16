@@ -2,9 +2,8 @@ package domaine;
 
 import exceptions.*;
 
-import java.lang.reflect.Array;
-import java.security.DrbgParameters;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -18,15 +17,17 @@ public class Partie {
     public Partie()  {
         plateau = new Plateau();
         Scanner sc = new Scanner(System.in);
+        boolean continuer;
         do {
+            continuer = false;
             try {
                 System.out.println("Veuillez entrer le nombre de joueurs de la partie (entre 1 et 4) : ");
                 int nb = sc.nextByte();
+                joueurs = new ArrayList<>(nb);
                 initialiserJoueurs(nb);
             }
-            catch (PasDeJoueurException e) {
-            }
-        } while (joueurs == null);
+            catch (InputMismatchException|PasDeJoueurException e) { continuer = true; sc.nextLine(); }
+        } while (continuer || joueurs.isEmpty());
 
     }
 
@@ -40,7 +41,6 @@ public class Partie {
         if (nbJoueur<=4) {
             Scanner sc = new Scanner(System.in);
             String nom;
-            joueurs = new ArrayList<>(nbJoueur);
             for (int i = 0; i<nbJoueur; i++){
                 System.out.println("Entrer le nom du joueur "+(i+1)+" :");
                 nom = sc.nextLine();
