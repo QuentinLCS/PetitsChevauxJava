@@ -7,11 +7,13 @@ public class CaseDeChemin extends Case {
 
     @Override
     public boolean peutPasser(Pion cheval) {
+        //TODO
         return false;
     }
 
     @Override
     public boolean peutSArreter(Pion cheval) {
+        //TODO
         return false;
     }
 }

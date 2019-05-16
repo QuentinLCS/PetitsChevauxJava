@@ -64,7 +64,7 @@ public class Partie {
                         res = de;
                     }
                 }
-                /*else {
+                /*TODO : else {
                     de = lancerDe();
                     if (de>res){
                         joueurCourant=player;
@@ -83,7 +83,7 @@ public class Partie {
     }
 
     public void jouerUnTour(){
-        //methode à completer
+        //TODO : methode à completer
     }
 
     public boolean estPartieTermine(){
