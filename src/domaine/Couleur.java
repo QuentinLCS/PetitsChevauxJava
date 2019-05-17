@@ -11,16 +11,17 @@ public enum Couleur {
     ROUGE("\033[91;107m","\033[1;97;101m",3);
 
     private String codeCouleur, codeCouleurFond;
-    private int id;
+    private int indexCaseDepart;
 
     /**
      * Le constructeur d'un objet Couleur. Les codes couleurs sont à disposer avant le message devant recevoir la coloration. Fermer la coloration avec "\033[0m".
      * @param codeCouleur Code couleur sur fond blanc de la couleur.
      * @param codeCouleurFond Code couleur blanc sur fond de la couleur.
      */
-    Couleur(String codeCouleur, String codeCouleurFond, int id) {
+    Couleur(String codeCouleur, String codeCouleurFond, int indexCaseDepart) {
         this.codeCouleur = codeCouleur;
         this.codeCouleurFond = codeCouleurFond;
+        this.indexCaseDepart = indexCaseDepart;
     }
 
     public String getCodeCouleur() {
@@ -32,5 +33,5 @@ public enum Couleur {
     }
 
     public int getId() {
-        return id;
+        return this.indexCaseDepart;
     }}

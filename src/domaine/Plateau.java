@@ -35,6 +35,8 @@ public class Plateau {
                 this.echelles.get(i).add(new CaseDEchelle(Couleur.values()[i]));
                 for (byte k = 0; k < 2; k++)
                     this.chemin.add(new CaseDeChemin());
+                if (j < 4)
+                    this.ecuries.get(i).ajouteCheval(new Pion(Couleur.values()[i]+"_"+j, Couleur.values()[i]));
             }
         }
     }

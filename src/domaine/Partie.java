@@ -69,7 +69,6 @@ public class Partie {
                 nom = sc.nextLine();
                 joueurs.add(new JoueurHumain(nom,Couleur.values()[i]));
                 joueurs.get(i).setCaseDeDepart(plateau.getEcuries().get(joueurs.get(i).getCouleur().getId()));
-                for (Pion chevaux : joueurs.get(i).getChevaux()) chevaux.setPosition(joueurs.get(i).getCaseDeDepart());
                 System.out.println("Très bien "+joueurs.get(i).getNom()+", vous serez de couleur "+joueurs.get(i).getCouleur().getCodeCouleurFond()+joueurs.get(i).getCouleur()+"\033[0m !");
             }
             int res=-1;
