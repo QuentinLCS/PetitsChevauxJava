@@ -7,6 +7,18 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 /**
  * Classe instaciable de la Partie.
  */
@@ -149,6 +161,59 @@ public class Partie {
         ArrayList<CaseEcurie> ecuries = getPlateau().getEcuries();
         CaseEcurie ecu = ecuries.get(ecuries.indexOf(new CaseEcurie(chevaux.get(0).getCouleur())));
         for (Pion pion:chevaux) getPlateau().deplacerPionA(pion, ecu);
+    }
+
+    /**
+     * Sauvegarder dans un fichier donné en paramètre.
+     * @param fichier Nom du fichier en format string.
+     */
+    public void sauvegarderPartie(String fichier) {
+        ObjectOutputStream oos;
+
+        try {
+            oos = new ObjectOutputStream(
+                    new BufferedOutputStream(
+                            new FileOutputStream(
+                                    new File(fichier))));
+
+            oos.writeObject(this);
+
+            oos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Charger un fichier donné en paramètre.
+     * @param fichier Nom du fichier en format string.
+     */
+    public void chargerPartie(String fichier) {
+        ObjectInputStream ois;
+
+        try {
+            ois = new ObjectInputStream(
+                    new BufferedInputStream(
+                            new FileInputStream(
+                                    new File(fichier))));
+
+            try {
+                System.out.println("Affichage des jeux :");
+                System.out.println("*************************\n");
+                System.out.println(((Partie)ois.readObject()).toString());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            ois.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

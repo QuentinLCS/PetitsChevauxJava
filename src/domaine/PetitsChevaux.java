@@ -14,6 +14,9 @@ public class PetitsChevaux {
         while (petitschevaux.continuerProgramme) {
             petitschevaux.afficherMenu();
         }
+        Plateau plateau = new Plateau();
+        plateau.afficher();
+
     }
 
     public void afficherMenu() {
