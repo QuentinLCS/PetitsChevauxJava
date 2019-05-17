@@ -6,12 +6,28 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Classe instaciable du joueur humain.
+ * Fils de la classe Joueur.
+ */
 public class JoueurHumain extends Joueur {
 
+    /**
+     * Constructeur JoueurHumain()
+     * @param nom Nom du joueur pour le constructeur parent.
+     * @param couleur Couleur du joueur.
+     */
     public JoueurHumain(String nom, Couleur couleur) {
         super(nom, couleur);
     }
 
+    /**
+     * Propose les pions déplaçables en fonction de leurs contraintes et de la valeur du dé.
+     * @param distance Distance donnée par le dé.
+     * @param plateau Plateau de la partie.
+     * @return Retourne le cheval choisi par le joueur parmi ceux proposés.
+     * @throws ConflitDeCouleurException Si un joueur adverse est sur la route. (pion non choisissable)
+     */
     @Override
     public Pion choisirPion(int distance, Plateau plateau) throws ConflitDeCouleurException {
         ArrayList<Pion> chevauxDeplacables = new ArrayList<Pion>();
