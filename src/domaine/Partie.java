@@ -54,10 +54,7 @@ public class Partie {
                 if (player instanceof JoueurHumain){
                     String input;
                     System.out.println("Joueur "+player.getNom()+" ("+player.getCouleur().getCodeCouleurFond()+"     \033[0m), c'est à vous de lancer le dé !");
-                    do {
-                        input = sc.nextLine();
-                        if (input != "\0") System.out.println("\033[91;107mIl faut appuyer sur la touche Entrée !\033[0m");
-                    } while (input != "\0");
+                    sc.nextLine();
                     de = lancerDe();
                     if (de>res){
                         joueurCourant=player;
