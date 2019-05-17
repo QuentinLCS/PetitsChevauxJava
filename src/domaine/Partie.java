@@ -7,6 +7,9 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Classe instaciable de la Partie.
+ */
 public class Partie {
 
     private Random de = new Random() ;
@@ -14,8 +17,16 @@ public class Partie {
     private ArrayList<Joueur> joueurs;
     private Plateau plateau;
 
+    /**
+     * Constructeur Partie()
+     *
+     * Ce dernier initialise la partie :
+     * - Création du plateau
+     * - Nombre de Joueurs
+     * - Initialisation des joueurs.
+     */
     public Partie()  {
-        initialiserPlateau();
+        this.initialiserPlateau();
         Scanner sc = new Scanner(System.in);
         boolean continuer;
         do {
@@ -54,7 +65,6 @@ public class Partie {
             System.out.println("Déterminons maintenant l'ordre de jeu !");
             for (Joueur player : joueurs) {
                 if (player instanceof JoueurHumain){
-                    String input;
                     System.out.print("\nJoueur "+player.getNom()+" ("+player.getCouleur().getCodeCouleurFond()+"     \033[0m), c'est à vous de lancer le dé ! [Appuyez sur entrée]");
                     sc.nextLine();
                     de = lancerDe();
@@ -74,10 +84,17 @@ public class Partie {
         }
     }
 
+    /**
+     * Appel le constructeur du plateau pour cette partie.
+     */
     public void initialiserPlateau(){
         plateau = new Plateau();
     }
 
+    /**
+     * Permet de lancer un dé de 6.
+     * @return Retourne la valeur du dé.
+     */
     private int lancerDe(){
         return de.nextInt(6)+1;
     }
@@ -108,6 +125,10 @@ public class Partie {
         }
     }
 
+    /**
+     * Test les conditions de fin de partie. C'est à dire que les 4 pions d'une couleur sont sur les case d'échelle les plus hautes.
+     * @return Retourne si la condition est validée ou non.
+     */
     public boolean estPartieTermine(){
         ArrayList<ArrayList<CaseDEchelle>> listeEchelles = getPlateau().getEchelles();
         boolean victoire = false;
@@ -140,10 +161,14 @@ public class Partie {
         return plateau;
     }
 
+    /**
+     * Méthode permettant de manger les chevaux, de les renvoyer dans leurs écuries et de se mettre à leur position.
+     * @param cs Case sur laquelles les pions à manger se trouvent.
+     */
     private void mangerLesPions(Case cs){
         ArrayList<Pion> chevaux = cs.getChevaux();
         ArrayList<CaseEcurie> ecuries = getPlateau().getEcuries();
-        CaseEcurie ecu = ecuries.get(chevaux.get(0).getCouleur().getId());
+        CaseEcurie ecu = ecuries.get(ecuries.indexOf(new CaseEcurie(chevaux.get(0).getCouleur())));
         for (Pion pion:chevaux) getPlateau().deplacerPionA(pion, ecu);
     }
 }

@@ -4,6 +4,10 @@ import exceptions.ConflitDeCouleurException;
 
 import java.util.ArrayList;
 
+/**
+ * Classe abstraite des joueurs.
+ * Parent de JoueurHumain et JoueurIA
+ */
 public abstract class Joueur {
 
     private String nom;
@@ -11,7 +15,11 @@ public abstract class Joueur {
     private ArrayList<Pion> chevaux;
     private Couleur couleur;
 
-
+    /**
+     * Constructeur Joueur()
+     * @param nom Nom du joueur.
+     * @param couleur Couleur du joueur.
+     */
     public Joueur(String nom, Couleur couleur) {
         this.nom = nom;
         this.couleur=couleur;
