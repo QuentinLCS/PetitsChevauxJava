@@ -105,8 +105,9 @@ public class Plateau {
      * @param caseCible Case destination.
      */
     public void deplacerPionA(Pion pion, Case caseCible){
-        int pos=chemin.indexOf(pion);
-        chemin.get(pos).getChevaux().remove(pion);
+        Case caseDepart = pion.getPosition();
+        caseDepart.getChevaux().remove(pion);
         caseCible.ajouteCheval(pion);
+        pion.setPosition(caseCible);
     }
 }

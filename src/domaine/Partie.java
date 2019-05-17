@@ -68,6 +68,8 @@ public class Partie {
                 System.out.print("Entrer le nom du joueur "+(i+1)+" : ");
                 nom = sc.nextLine();
                 joueurs.add(new JoueurHumain(nom,Couleur.values()[i]));
+                joueurs.get(i).setCaseDeDepart(plateau.getEcuries().get(joueurs.get(i).getCouleur().getId()));
+                for (Pion chevaux : joueurs.get(i).getChevaux()) chevaux.setPosition(joueurs.get(i).getCaseDeDepart());
                 System.out.println("Très bien "+joueurs.get(i).getNom()+", vous serez de couleur "+joueurs.get(i).getCouleur().getCodeCouleurFond()+joueurs.get(i).getCouleur()+"\033[0m !");
             }
             int res=-1;
@@ -109,11 +111,30 @@ public class Partie {
         return de.nextInt(6)+1;
     }
 
-    /**
-     *
-     */
-    public void jouerUnTour(){
-        //TODO : methode à completer, réflexive ?
+    public void jouerUnTour() throws ConflitDeCouleurException{
+        int de = lancerDe();
+        Case arrivee;
+
+        Pion choix=joueurCourant.choisirPion(de, plateau);
+        int idCouleurJoueur = joueurCourant.getCouleur().getId();
+        CaseEcurie ecurieDuJoueur = plateau.getEcuries().get(idCouleurJoueur);
+        ArrayList<CaseDEchelle> echelleDuJoueur = plateau.getEchelles().get(idCouleurJoueur);
+
+        if (ecurieDuJoueur.equals(choix.getPosition())){
+            arrivee = joueurCourant.getCaseDeDepart();
+            if(!(arrivee.getChevaux().isEmpty()) && arrivee.getChevaux().get(0).getCouleur()!=joueurCourant.getCouleur() ) mangerLesPions(arrivee);
+        }
+        else if (echelleDuJoueur.contains(choix.getPosition())) {
+            arrivee = echelleDuJoueur.get(echelleDuJoueur.indexOf(choix.getPosition()) + 1);
+        }
+        else{
+            arrivee = plateau.getChemin().get(plateau.getChemin().indexOf(choix.getPosition())+de);
+            if(!(arrivee.getChevaux().isEmpty()) && arrivee.getChevaux().get(0).getCouleur()!=joueurCourant.getCouleur()) mangerLesPions(arrivee);
+        }
+        plateau.deplacerPionA(choix, arrivee);
+        if (de == 6){
+            jouerUnTour();
+        }
     }
 
     /**

@@ -30,7 +30,7 @@ public class JoueurHumain extends Joueur {
      */
     @Override
     public Pion choisirPion(int distance, Plateau plateau) throws ConflitDeCouleurException {
-        ArrayList<Pion> chevauxDeplacables = new ArrayList<Pion>();
+        ArrayList<Pion> chevauxDeplacables = new ArrayList<>();
         byte saisie = 0, i, nbChevauxVerifies = (byte)plateau.getEcuries().get(plateau.getEcuries().indexOf(new CaseEcurie(this.getCouleur()))).getChevaux().size();
         boolean continuer;
         CaseDeChemin caseChemin = new CaseDeChemin();

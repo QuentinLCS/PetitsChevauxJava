@@ -23,6 +23,10 @@ public abstract class Joueur {
     public Joueur(String nom, Couleur couleur) {
         this.nom = nom;
         this.couleur=couleur;
+        this.chevaux = new ArrayList<>(4);
+        for (int i=0; i<4; i++){
+            chevaux.add(new Pion((nom+i), couleur));
+        }
     }
 
     public Case getCaseDeDepart() {
