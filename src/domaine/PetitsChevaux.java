@@ -1,29 +1,37 @@
 package domaine;
 
+import exceptions.ConflitDeCouleurException;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PetitsChevaux {
-    private boolean continuerProgramme;
-    public PetitsChevaux() {
-        this.continuerProgramme = true;
-    }
+    private static Partie partie;
+    private static boolean jouer, fermerProgramme;
 
-    public static void main(String[] args) {
+    public PetitsChevaux() {}
+
+    public static void main(String[] args) throws InterruptedException, ConflitDeCouleurException {
         PetitsChevaux petitschevaux = new PetitsChevaux();
-        while (petitschevaux.continuerProgramme) {
-            petitschevaux.afficherMenu();
-        }
-        Plateau plateau = new Plateau();
-        plateau.afficher();
+        boolean continuer = true;
 
+        while (!fermerProgramme) {
+            if (!jouer)
+                petitschevaux.afficherMenu();
+            else
+                for (Joueur joueur : partie.getJoueurs()) {
+                    partie.getPlateau().afficher();
+                    partie.setJoueurCourant(joueur);
+                    partie.jouerUnTour();
+                }
+        }
     }
 
-    public void afficherMenu() {
+    public void afficherMenu() throws InterruptedException {
         boolean continuer;
         byte saisie = -1;
         Scanner scan = new Scanner(System.in);
-
+        PetitsChevaux.clear();
         System.out.println(
                 "\n[Projet 1A] PETITS CHEVAUX \n" +
                 "Par : CHAVAS Nathan & LECHASLES Quentin\n\n" +
@@ -47,7 +55,8 @@ public class PetitsChevaux {
         switch (saisie)
         {
             case 1 :
-                Partie partie = new Partie();
+                partie = new Partie();
+                jouer = true;
                 break;
             case 2 :
                 System.out.println("INDISPONIBLE");
@@ -56,15 +65,15 @@ public class PetitsChevaux {
                 this.afficherOption();
                 break;
             default:
-                this.continuerProgramme = false;
-                break;
+                fermerProgramme = true;
         }
     }
 
-    public void afficherOption() {
+    public void afficherOption() throws InterruptedException {
         byte saisie = -1;
         boolean continuer;
         Scanner scan = new Scanner(System.in);
+        PetitsChevaux.clear();
         System.out.print(
                 "\n[OPTIONS] A quelle option souhaitez-vous accéder ?\n  " +
                         "[1] Scénarios\n  " +
@@ -87,8 +96,17 @@ public class PetitsChevaux {
                 System.out.println("INDISPONIBLE");
                 break;
             case 2 :
+                PetitsChevaux.clear();
                 System.out.println("\n[Projet 1A] PETITS CHEVAUX \n--------------------------\n\nPar : CHAVAS Nathan & LECHASLES Quentin\n\nEtablissement : IUT Caen\n\nDate : 2018-2019\n\nClasse : TD2.1");
+                Thread.sleep(3000);
+                break;
+            default:
+                this.afficherMenu();
                 break;
         }
+    }
+
+    public static void clear() {
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
 }
