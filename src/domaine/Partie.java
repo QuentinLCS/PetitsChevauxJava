@@ -52,7 +52,6 @@ public class Partie {
             System.out.println("Déterminons maintenant l'ordre de jeu !");
             for (Joueur player : joueurs) {
                 if (player instanceof JoueurHumain){
-                    String input;
                     System.out.print("\nJoueur "+player.getNom()+" ("+player.getCouleur().getCodeCouleurFond()+"     \033[0m), c'est à vous de lancer le dé ! [Appuyez sur entrée]");
                     sc.nextLine();
                     de = lancerDe();
