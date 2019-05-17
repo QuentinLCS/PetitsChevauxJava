@@ -19,7 +19,9 @@ public class CaseDEchelle extends CaseColoree {
      * @param cheval Cheval qui souhaite se déplacer.
      * @return Si oui ou non il peut passer.
      */
+
     public boolean peutPasser(Pion cheval) {
         return this.getChevaux().isEmpty();
     }
+
 }
