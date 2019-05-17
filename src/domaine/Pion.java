@@ -1,10 +1,18 @@
 package domaine;
 
+/**
+ * Classe de l'instance pion représentant les chevaux.
+ */
 public class Pion {
     private String id;
     private Couleur couleur;
     private Case position;
 
+    /**
+     * Constructeur Pion()
+     * @param id Il s'agit de l'id du pion, utile à leur différenciation dans une ArrayList.
+     * @param couleur Ce paramètre permet de définir leur couleur d'appartenance.
+     */
     public Pion(String id, Couleur couleur) {
         this.id = id;
         this.couleur = couleur;
