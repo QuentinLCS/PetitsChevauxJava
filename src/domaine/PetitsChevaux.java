@@ -5,6 +5,9 @@ import exceptions.ConflitDeCouleurException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Classe par défaut du programme. Contient le main.
+ */
 public class PetitsChevaux {
     private static Partie partie;
     private static boolean jouer, fermerProgramme;
@@ -26,6 +29,10 @@ public class PetitsChevaux {
         }
     }
 
+    /**
+     * Méthode permettant l'affichage du menu et le choix du sous menu.
+     * @throws InterruptedException Exception pour le sleep.
+     */
     public void afficherMenu() throws InterruptedException {
         byte saisie;
         PetitsChevaux.clear();
@@ -58,6 +65,10 @@ public class PetitsChevaux {
         }
     }
 
+    /**
+     * Méthode permettant d'afficher le menu des options et le choix des sous-menus.
+     * @throws InterruptedException Exception pour le sleep.
+     */
     public void afficherOption() throws InterruptedException {
         byte saisie;
         PetitsChevaux.clear();
@@ -86,6 +97,10 @@ public class PetitsChevaux {
         }
     }
 
+    /**
+     * Méthode permettant l'affichage des différents scénarios disponibles et la sélection.
+     * @throws InterruptedException Exception pour le sleep.
+     */
     public void afficherScenarios() throws InterruptedException {
         byte saisie;
 
@@ -116,6 +131,12 @@ public class PetitsChevaux {
         }
     }
 
+    /**
+     * Méthode permettant une saisie décurisée d'un nombre (utile pour les menus)
+     * @param min Numéro du choix minimum.
+     * @param max Numéro du choix max.
+     * @return Retourne le numéro choisi entre min et max par l'utilisateur.
+     */
     public byte choixMenu(byte min, byte max) {
         boolean continuer;
         byte saisie = -1;
@@ -134,6 +155,9 @@ public class PetitsChevaux {
         return saisie;
     }
 
+    /**
+     * Méthode permattant de "clear" la console.
+     */
     public static void clear() {
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     }
