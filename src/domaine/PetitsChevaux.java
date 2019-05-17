@@ -13,7 +13,6 @@ public class PetitsChevaux {
 
     public static void main(String[] args) throws InterruptedException, ConflitDeCouleurException {
         PetitsChevaux petitschevaux = new PetitsChevaux();
-        boolean continuer = true;
 
         while (!fermerProgramme) {
             if (!jouer)
@@ -28,9 +27,7 @@ public class PetitsChevaux {
     }
 
     public void afficherMenu() throws InterruptedException {
-        boolean continuer;
-        byte saisie = -1;
-        Scanner scan = new Scanner(System.in);
+        byte saisie;
         PetitsChevaux.clear();
         System.out.println(
                 "\n[Projet 1A] PETITS CHEVAUX \n" +
@@ -42,15 +39,7 @@ public class PetitsChevaux {
                 "[4] Quitter \n\n" +
                 "Mode [entrez une valeur]: ");
 
-        do {
-            try {
-                continuer = false;
-                saisie = scan.nextByte();
-            } catch (InputMismatchException e) {
-                continuer = true;
-                scan.nextLine();
-            }
-        } while (saisie < 1 || saisie > 4 || continuer);
+        saisie = this.choixMenu((byte)1, (byte)4);
 
         switch (saisie)
         {
@@ -70,9 +59,7 @@ public class PetitsChevaux {
     }
 
     public void afficherOption() throws InterruptedException {
-        byte saisie = -1;
-        boolean continuer;
-        Scanner scan = new Scanner(System.in);
+        byte saisie;
         PetitsChevaux.clear();
         System.out.print(
                 "\n[OPTIONS] A quelle option souhaitez-vous accéder ?\n  " +
@@ -80,20 +67,13 @@ public class PetitsChevaux {
                         "[2] Plus d'infos\n  " +
                         "[3] RETOUR\n\n" +
                         "Option [entrez une valeur]: ");
-        do {
-            try {
-                continuer = false;
-                saisie = scan.nextByte();
-            } catch (InputMismatchException e) {
-                continuer = true;
-                scan.nextLine();
-            }
-        } while (saisie < 1 || saisie > 3 || continuer);
+
+        saisie = this.choixMenu((byte)1, (byte)3);
 
         switch (saisie)
         {
             case 1 :
-                System.out.println("INDISPONIBLE");
+                this.afficherScenarios();
                 break;
             case 2 :
                 PetitsChevaux.clear();
@@ -104,6 +84,54 @@ public class PetitsChevaux {
                 this.afficherMenu();
                 break;
         }
+    }
+
+    public void afficherScenarios() throws InterruptedException {
+        byte saisie;
+
+        PetitsChevaux.clear();
+        System.out.print(
+                "\n[SCENARIOS] A quel scenario souhaitez-vous acceder ?\n  " +
+                        "[1] ..\n  " +
+                        "[2] ..\n  " +
+                        "[3] ..\n  " +
+                        "[4] Retour\n\n" +
+                        "Scenario [entrez une valeur]: ");
+
+        saisie = this.choixMenu((byte)1, (byte)4);
+
+        switch (saisie)
+        {
+            case 1 :
+                partie.chargerPartie("scenario1.txt");
+                break;
+            case 2 :
+                partie.chargerPartie("scenario2.txt");
+                break;
+            case 3 :
+                partie.chargerPartie("scenario3.txt");
+                break;
+            default :
+                this.afficherOption();
+        }
+    }
+
+    public byte choixMenu(byte min, byte max) {
+        boolean continuer;
+        byte saisie = -1;
+        Scanner scan = new Scanner(System.in);
+
+        do {
+            try {
+                continuer = false;
+                saisie = scan.nextByte();
+            } catch (InputMismatchException e) {
+                continuer = true;
+                scan.nextLine();
+            }
+        } while (saisie < min || saisie > max || continuer);
+
+        return saisie;
     }
 
     public static void clear() {
