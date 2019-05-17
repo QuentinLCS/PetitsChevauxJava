@@ -21,7 +21,7 @@ public class Partie {
         do {
             continuer = false;
             try {
-                System.out.println("Veuillez entrer le nombre de joueurs de la partie (entre 1 et 4) : ");
+                System.out.print("Veuillez entrer le nombre de joueurs de la partie (entre 1 et 4) : ");
                 int nb = sc.nextByte();
                 initialiserJoueurs(nb);
             }
@@ -42,20 +42,21 @@ public class Partie {
             Scanner sc = new Scanner(System.in);
             String nom;
             for (int i = 0; i<nbJoueur; i++){
-                System.out.println("Entrer le nom du joueur "+(i+1)+" :");
+                System.out.print("Entrer le nom du joueur "+(i+1)+" : ");
                 nom = sc.nextLine();
                 joueurs.add(new JoueurHumain(nom,Couleur.values()[i]));
-                System.out.print("Très bien "+joueurs.get(i).getNom()+", vous serez de couleur "+joueurs.get(i).getCouleur().getCodeCouleurFond()+joueurs.get(i).getCouleur()+"\033[0m !");
+                System.out.println("Très bien "+joueurs.get(i).getNom()+", vous serez de couleur "+joueurs.get(i).getCouleur().getCodeCouleurFond()+joueurs.get(i).getCouleur()+"\033[0m !");
             }
             int res=-1;
             int de;
-            System.out.println("Déterminons maintenant l'ordre de jeu !\nLancez votre dé en appuyant sur le touche \"Entrée\" \n");
+            System.out.println("Déterminons maintenant l'ordre de jeu !");
             for (Joueur player : joueurs) {
                 if (player instanceof JoueurHumain){
                     String input;
-                    System.out.println("Joueur "+player.getNom()+" ("+player.getCouleur().getCodeCouleurFond()+"     \033[0m), c'est à vous de lancer le dé !");
+                    System.out.print("\nJoueur "+player.getNom()+" ("+player.getCouleur().getCodeCouleurFond()+"     \033[0m), c'est à vous de lancer le dé ! [Appuyez sur entrée]");
                     sc.nextLine();
                     de = lancerDe();
+                    System.out.println("Résultat : " +de);
                     if (de>res){
                         joueurCourant=player;
                         res = de;
