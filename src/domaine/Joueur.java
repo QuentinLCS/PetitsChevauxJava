@@ -27,6 +27,7 @@ public abstract class Joueur {
         for (int i=0; i<4; i++){
             chevaux.add(new Pion((nom+i), couleur));
         }
+
     }
 
     public Case getCaseDeDepart() {

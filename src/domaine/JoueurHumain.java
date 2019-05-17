@@ -31,47 +31,57 @@ public class JoueurHumain extends Joueur {
     @Override
     public Pion choisirPion(int distance, Plateau plateau) throws ConflitDeCouleurException {
         ArrayList<Pion> chevauxDeplacables = new ArrayList<>();
-        byte saisie = 0, i, nbChevauxVerifies = (byte)plateau.getEcuries().get(plateau.getEcuries().indexOf(new CaseEcurie(this.getCouleur()))).getChevaux().size();
+        ArrayList<CaseDEchelle> echelleJoueur = plateau.getEchelles().get(getCouleur().getId());
+        CaseDeChemin caseDevantEchelle = plateau.getChemin().get(plateau.getChemin().indexOf(getCaseDeDepart())-1);
+
+        byte saisie = 0,i, proposition=1, nbChevauxVerifies = (byte)plateau.getEcuries().get(getCouleur().getId()).getChevaux().size();
         boolean continuer;
-        CaseDeChemin caseChemin = new CaseDeChemin();
+
+
         Scanner scan = new Scanner(System.in);
-        caseChemin.ajouteCheval(this.getChevaux().get(nbChevauxVerifies));
 
-        if (distance == 6)
-            if (nbChevauxVerifies > 0)
-                chevauxDeplacables.add(this.getChevaux().get(0));
-
-        while (nbChevauxVerifies != 4) {
-            i = 0;
-            continuer = true;
-
-            while (continuer) {
-                if (plateau.getChemin().get(plateau.getChemin().indexOf(caseChemin)).peutPasser(this.getChevaux().get(nbChevauxVerifies))) {
-                    i++;
-                    if (i == distance) {
-                        caseChemin.ajouteCheval(this.getChevaux().get(nbChevauxVerifies));
-                        chevauxDeplacables.add(this.getChevaux().get(nbChevauxVerifies));
-                    }
-                } else
-                    continuer = false;
+        if (distance == 6) if (nbChevauxVerifies > 0) chevauxDeplacables.add(this.getChevaux().get(0)); //Parcours les chevaux restant a.k.a ceux n'étant pas dans l'écurie
+        for(int k=nbChevauxVerifies; k<4; k++){
+            Pion pion=getChevaux().get(k);
+            if(getChevaux().get(k).getPosition() instanceof CaseEcurie){
+                if (echelleJoueur.get(echelleJoueur.indexOf(pion.getPosition())+1).peutPasser(pion) && echelleJoueur.indexOf(pion.getPosition())+2== distance) { //Condition pour passer à la case d'échelle suivante
+                    chevauxDeplacables.add(pion);
+                    System.out.println(proposition+ " : Bouger le pion n°"+getChevaux().indexOf(pion));
+                    proposition++;
+                }
             }
-            nbChevauxVerifies++;
+            else if (pion.getPosition().equals(caseDevantEchelle) && distance==1) { //Condition pour monter sur l'échelle
+                chevauxDeplacables.add(pion);
+                System.out.println(proposition + " : Bouger le pion n°" + getChevaux().indexOf(pion));
+                proposition++;
+            }
+            else {
+                continuer=true;
+                i=1;
+                while (i<distance && continuer){
+                    continuer=plateau.getChemin().get(plateau.getChemin().indexOf(pion.getPosition())+i).peutPasser(pion);
+                    if (plateau.getChemin().get(plateau.getChemin().indexOf(pion.getPosition())+i).equals(caseDevantEchelle)) continuer=false;
+                }
+                if (continuer) chevauxDeplacables.add(pion);
+            }
         }
 
-        for (byte j = 0; j < this.getChevaux().size(); j++ )
-            System.out.println(j+ " : Déplacer le cheval numero " +j);
+        if (distance==6 && nbChevauxVerifies>0){
+            System.out.println(proposition+ " : Sortir un pion de l'écurie");
+        }
 
         do {
             continuer = false;
             try {
-                System.out.print("Numéro de pion à déplacer : ");
+                System.out.print("Choisir une proposition : ");
                 saisie = scan.nextByte();
             } catch (InputMismatchException e) {
+                System.out.println("\033[93;107mErreur : Il faut entrer un chiffre entre 1 et "+chevauxDeplacables.size()+"\033[0m");
                 continuer = true;
                 scan.nextLine();
             }
-        } while((saisie < 1 || saisie > this.getChevaux().size()) || continuer);
+        } while((saisie < 1 || saisie > chevauxDeplacables.size()) || continuer);
 
-        return chevauxDeplacables.get(saisie);
+        return chevauxDeplacables.get(saisie-1);
     }
 }

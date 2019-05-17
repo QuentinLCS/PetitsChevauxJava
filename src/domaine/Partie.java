@@ -68,7 +68,20 @@ public class Partie {
                 System.out.print("Entrer le nom du joueur "+(i+1)+" : ");
                 nom = sc.nextLine();
                 joueurs.add(new JoueurHumain(nom,Couleur.values()[i]));
-                joueurs.get(i).setCaseDeDepart(plateau.getEcuries().get(joueurs.get(i).getCouleur().getId()));
+                switch (joueurs.get(i).getCouleur().getId()){
+                    case 0 :
+                        joueurs.get(i).setCaseDeDepart(plateau.getChemin().get(44));
+                        break;
+                    case 1 :
+                        joueurs.get(i).setCaseDeDepart(plateau.getChemin().get(2));
+                        break;
+                    case 2 :
+                        joueurs.get(i).setCaseDeDepart(plateau.getChemin().get(30));
+                        break;
+                    case 3 :
+                        joueurs.get(i).setCaseDeDepart(plateau.getChemin().get(16));
+                        break;
+                }
                 System.out.println("Très bien "+joueurs.get(i).getNom()+", vous serez de couleur "+joueurs.get(i).getCouleur().getCodeCouleurFond()+joueurs.get(i).getCouleur()+"\033[0m !");
             }
             int res=-1;
