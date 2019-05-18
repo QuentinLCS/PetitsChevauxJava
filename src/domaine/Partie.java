@@ -85,24 +85,12 @@ public class Partie {
                 System.out.println("Très bien " + joueurs.get(i).getNom() + ", vous serez de couleur " + joueurs.get(i).getCouleur().getCodeCouleurFond() + joueurs.get(i).getCouleur() + "\033[0m !");
             }
             // initialisation des bots
-            byte difficultee = -1;
+            byte difficulte;
             if (nbJoueur < 4) {
-                System.out.println("Choisissez le niveau de difficulté de l'I.A :\n[0] Facile\n[1] Moyen\n[2] Difficile");
-                boolean continuer;
-                do {
-                    continuer = false;
-                    try {
-                        System.out.print("Choisir une difficulté : ");
-                        difficultee = sc.nextByte();
-                    } catch (InputMismatchException e) {
-                        System.out.println("\033[93;107mErreur : Il faut entrer un chiffre entre 0 et 2\033[0m");
-                        continuer = true;
-                        sc.nextLine();
-                    }
-                } while ((difficultee < 0 || difficultee > 2) || continuer);
-            }
-            for (int j = nbJoueur; j < 4; j++) {
-                joueurs.add(new JoueurIA(("Bot" + j), Couleur.values()[j], difficultee));
+                System.out.println("Choisissez le niveau de difficulté de l'I.A :\n[1] Facile\n[2] Moyen\n[3] Difficile");
+                difficulte = PetitsChevaux.choixMenu((byte)1, (byte)3);
+                for (int j = nbJoueur; j < 4; j++)
+                    joueurs.add(new JoueurIA(("Bot" + j), Couleur.values()[j], difficulte));
             }
 
 

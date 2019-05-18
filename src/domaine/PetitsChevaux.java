@@ -46,7 +46,7 @@ public class PetitsChevaux {
                 "[4] Quitter \n\n" +
                 "Mode [entrez une valeur]: ");
 
-        saisie = this.choixMenu((byte)1, (byte)4);
+        saisie = PetitsChevaux.choixMenu((byte)1, (byte)4);
 
         switch (saisie)
         {
@@ -79,7 +79,7 @@ public class PetitsChevaux {
                         "[3] RETOUR\n\n" +
                         "Option [entrez une valeur]: ");
 
-        saisie = this.choixMenu((byte)1, (byte)3);
+        saisie = PetitsChevaux.choixMenu((byte)1, (byte)3);
 
         switch (saisie)
         {
@@ -113,7 +113,7 @@ public class PetitsChevaux {
                         "[4] Retour\n\n" +
                         "Scenario [entrez une valeur]: ");
 
-        saisie = this.choixMenu((byte)1, (byte)4);
+        saisie = PetitsChevaux.choixMenu((byte)1, (byte)4);
 
         switch (saisie)
         {
@@ -137,7 +137,7 @@ public class PetitsChevaux {
      * @param max Numéro du choix max.
      * @return Retourne le numéro choisi entre min et max par l'utilisateur.
      */
-    public byte choixMenu(byte min, byte max) {
+    public static byte choixMenu(byte min, byte max) {
         boolean continuer;
         byte saisie = -1;
         Scanner scan = new Scanner(System.in);
