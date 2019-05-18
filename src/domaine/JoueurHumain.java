@@ -34,6 +34,8 @@ public class JoueurHumain extends Joueur {
         ArrayList<CaseDEchelle> echelleJoueur = plateau.getEchelles().get(getCouleur().getId());
         CaseDeChemin caseDevantEchelle = plateau.getChemin().get(plateau.getChemin().indexOf(getCaseDeDepart())-1);
 
+        Pion choix;
+
         byte saisie = 0,i, proposition=1, nbChevauxVerifies = (byte)plateau.getEcuries().get(getCouleur().getId()).getChevaux().size();
         boolean continuer;
 
@@ -45,13 +47,13 @@ public class JoueurHumain extends Joueur {
             Pion pion=getChevaux().get(k);
             if(getChevaux().get(k).getPosition() instanceof CaseEcurie){
                 if (echelleJoueur.get(echelleJoueur.indexOf(pion.getPosition())+1).peutPasser(pion) && echelleJoueur.indexOf(pion.getPosition())+2== distance) { //Condition pour passer à la case d'échelle suivante
-                    chevauxDeplacables.add(pion);
+                    chevauxDeplacables.add(proposition,pion);
                     System.out.println(proposition+ " : Bouger le pion n°"+getChevaux().indexOf(pion));
                     proposition++;
                 }
             }
             else if (pion.getPosition().equals(caseDevantEchelle) && distance==1) { //Condition pour monter sur l'échelle
-                chevauxDeplacables.add(pion);
+                chevauxDeplacables.add(proposition,pion);
                 System.out.println(proposition + " : Bouger le pion n°" + getChevaux().indexOf(pion));
                 proposition++;
             }
@@ -70,18 +72,24 @@ public class JoueurHumain extends Joueur {
             System.out.println(proposition+ " : Sortir un pion de l'écurie");
         }
 
-        do {
-            continuer = false;
-            try {
-                System.out.print("Choisir une proposition : ");
-                saisie = scan.nextByte();
-            } catch (InputMismatchException e) {
-                System.out.println("\033[93;107mErreur : Il faut entrer un chiffre entre 1 et "+chevauxDeplacables.size()+"\033[0m");
-                continuer = true;
-                scan.nextLine();
-            }
-        } while((saisie < 1 || saisie > chevauxDeplacables.size()) || continuer);
+        if (chevauxDeplacables.isEmpty()) choix = null;
+        else {
+            do {
+                continuer = false;
+                try {
+                    System.out.print("Choisir une proposition : ");
+                    saisie = scan.nextByte();
+                } catch (InputMismatchException e) {
+                    System.out.println("\033[93;107mErreur : Il faut entrer un chiffre entre 1 et "+chevauxDeplacables.size()+"\033[0m");
+                    continuer = true;
+                    scan.nextLine();
+                }
+            } while((saisie < 1 || saisie > chevauxDeplacables.size()) || continuer);
 
-        return chevauxDeplacables.get(saisie-1);
+            choix = chevauxDeplacables.get(saisie-1);
+        }
+
+
+        return choix;
     }
 }

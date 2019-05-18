@@ -58,52 +58,74 @@ public class Partie {
      * @param nbJoueur Nombre de joueurs renseignés par le joueur dans le constructeur.
      * @throws PasDeJoueurException dans le cas où un petit malin voudrait jouer sans joueur
      */
-    public void initialiserJoueurs(int nbJoueur) throws PasDeJoueurException{
+    public void initialiserJoueurs(int nbJoueur) throws PasDeJoueurException {
         joueurs = new ArrayList<>(nbJoueur);
-        if (nbJoueur<=0) throw new PasDeJoueurException();
-        if (nbJoueur<=4) {
+        if (nbJoueur <= 0) throw new PasDeJoueurException();
+        if (nbJoueur <= 4) {
             Scanner sc = new Scanner(System.in);
             String nom;
-            for (int i = 0; i<nbJoueur; i++){
-                System.out.print("Entrer le nom du joueur "+(i+1)+" : ");
+            for (int i = 0; i < nbJoueur; i++) {
+                System.out.print("Entrer le nom du joueur " + (i + 1) + " : ");
                 nom = sc.nextLine();
-                joueurs.add(new JoueurHumain(nom,Couleur.values()[i]));
-                switch (joueurs.get(i).getCouleur().getId()){
-                    case 0 :
+                joueurs.add(new JoueurHumain(nom, Couleur.values()[i]));
+                switch (joueurs.get(i).getCouleur().getId()) {
+                    case 0:
                         joueurs.get(i).setCaseDeDepart(plateau.getChemin().get(44));
                         break;
-                    case 1 :
+                    case 1:
                         joueurs.get(i).setCaseDeDepart(plateau.getChemin().get(2));
                         break;
-                    case 2 :
+                    case 2:
                         joueurs.get(i).setCaseDeDepart(plateau.getChemin().get(30));
                         break;
-                    case 3 :
+                    case 3:
                         joueurs.get(i).setCaseDeDepart(plateau.getChemin().get(16));
                         break;
                 }
-                System.out.println("Très bien "+joueurs.get(i).getNom()+", vous serez de couleur "+joueurs.get(i).getCouleur().getCodeCouleurFond()+joueurs.get(i).getCouleur()+"\033[0m !");
+                System.out.println("Très bien " + joueurs.get(i).getNom() + ", vous serez de couleur " + joueurs.get(i).getCouleur().getCodeCouleurFond() + joueurs.get(i).getCouleur() + "\033[0m !");
             }
-            int res=-1;
+            // initialisation des bots
+            byte difficultee = -1;
+            if (nbJoueur < 4) {
+                System.out.println("Choisissez le niveau de difficulté de l'I.A :\n[0] Facile\n[1] Moyen\n[2] Difficile");
+                boolean continuer;
+                do {
+                    continuer = false;
+                    try {
+                        System.out.print("Choisir une difficulté : ");
+                        difficultee = sc.nextByte();
+                    } catch (InputMismatchException e) {
+                        System.out.println("\033[93;107mErreur : Il faut entrer un chiffre entre 0 et 2\033[0m");
+                        continuer = true;
+                        sc.nextLine();
+                    }
+                } while ((difficultee < 0 || difficultee > 2) || continuer);
+            }
+            for (int j = nbJoueur; j < 4; j++) {
+                joueurs.add(new JoueurIA(("Bot" + j), Couleur.values()[j], difficultee));
+            }
+
+
+            int res = -1;
             int de;
             System.out.println("Déterminons maintenant l'ordre de jeu !");
             for (Joueur player : joueurs) {
-                if (player instanceof JoueurHumain){
-                    System.out.print("\nJoueur "+player.getNom()+" ("+player.getCouleur().getCodeCouleurFond()+"     \033[0m), c'est à vous de lancer le dé ! [Appuyez sur entrée]");
+                if (player instanceof JoueurHumain) {
+                    System.out.print("\nJoueur " + player.getNom() + " (" + player.getCouleur().getCodeCouleurFond() + "     \033[0m), c'est à vous de lancer le dé ! [Appuyez sur entrée]");
                     sc.nextLine();
                     de = lancerDe();
-                    System.out.println("Résultat : " +de);
-                    if (de>res){
-                        joueurCourant=player;
+                    System.out.println("Résultat : " + de);
+                    if (de > res) {
+                        joueurCourant = player;
+                        res = de;
+                    }
+                } else {
+                    de = lancerDe();
+                    if (de > res) {
+                        joueurCourant = player;
                         res = de;
                     }
                 }
-                /*TODO : else {
-                    de = lancerDe();
-                    if (de>res){
-                        joueurCourant=player;
-                        res = de;
-                }*/
             }
         }
     }
@@ -124,26 +146,40 @@ public class Partie {
     }
 
     public void jouerUnTour() throws ConflitDeCouleurException{
-        int de = lancerDe();
         Case arrivee;
-
-        Pion choix=joueurCourant.choisirPion(de, plateau);
-        int idCouleurJoueur = joueurCourant.getCouleur().getId();
-        CaseEcurie ecurieDuJoueur = plateau.getEcuries().get(idCouleurJoueur);
-        ArrayList<CaseDEchelle> echelleDuJoueur = plateau.getEchelles().get(idCouleurJoueur);
-
-        if (ecurieDuJoueur.equals(choix.getPosition())){
-            arrivee = joueurCourant.getCaseDeDepart();
-            if(!(arrivee.getChevaux().isEmpty()) && arrivee.getChevaux().get(0).getCouleur()!=joueurCourant.getCouleur() ) mangerLesPions(arrivee);
-        }
-        else if (echelleDuJoueur.contains(choix.getPosition())) {
-            arrivee = echelleDuJoueur.get(echelleDuJoueur.indexOf(choix.getPosition()) + 1);
+        int de;
+        if (joueurCourant instanceof JoueurHumain){
+            Scanner sc = new Scanner(System.in);
+            System.out.print("\nJoueur " + joueurCourant.getNom() + " (" + joueurCourant.getCouleur().getCodeCouleurFond() + "     \033[0m), c'est à vous de lancer le dé ! [Appuyez sur entrée]");
+            sc.nextLine();
+            de = lancerDe();
+            System.out.println("Résultat : " + de);
         }
         else{
-            arrivee = plateau.getChemin().get(plateau.getChemin().indexOf(choix.getPosition())+de);
-            if(!(arrivee.getChevaux().isEmpty()) && arrivee.getChevaux().get(0).getCouleur()!=joueurCourant.getCouleur()) mangerLesPions(arrivee);
+            de=lancerDe();
         }
-        plateau.deplacerPionA(choix, arrivee);
+
+        Pion choix=joueurCourant.choisirPion(de, plateau);
+
+        if (choix != null){
+            int idCouleurJoueur = joueurCourant.getCouleur().getId();
+            CaseEcurie ecurieDuJoueur = plateau.getEcuries().get(idCouleurJoueur);
+            ArrayList<CaseDEchelle> echelleDuJoueur = plateau.getEchelles().get(idCouleurJoueur);
+
+            if (ecurieDuJoueur.equals(choix.getPosition())){
+                arrivee = joueurCourant.getCaseDeDepart();
+                if(!(arrivee.getChevaux().isEmpty()) && arrivee.getChevaux().get(0).getCouleur()!=joueurCourant.getCouleur() ) mangerLesPions(arrivee);
+            }
+            else if (echelleDuJoueur.contains(choix.getPosition())) {
+                arrivee = echelleDuJoueur.get(echelleDuJoueur.indexOf(choix.getPosition()) + 1);
+            }
+            else{
+                arrivee = plateau.getChemin().get(plateau.getChemin().indexOf(choix.getPosition())+de);
+                if(!(arrivee.getChevaux().isEmpty()) && arrivee.getChevaux().get(0).getCouleur()!=joueurCourant.getCouleur()) mangerLesPions(arrivee);
+            }
+            plateau.deplacerPionA(choix, arrivee);
+        }
+
         if (de == 6){
             jouerUnTour();
         }
