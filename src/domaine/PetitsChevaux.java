@@ -31,13 +31,17 @@ public class PetitsChevaux {
                     partie.jouerUnTour(true);
                     Thread.sleep(3000);
                 }
-                PetitsChevaux.sauvegarderPartie("last.txt");
-                System.out.println(
-                        "Voulez-vous continuer la partie ?\n  " +
-                                "[1] Oui \n  " +
-                                "[2] Non\n  " +
-                                "Continuer ? [entrez une valeur]: ");
-                if (PetitsChevaux.choixMenu((byte)1, (byte)2) == 2) jouer = false;
+                if (partie.estPartieTermine())
+                    jouer = false;
+                else {
+                    PetitsChevaux.sauvegarderPartie("last.txt");
+                    System.out.println(
+                            "Voulez-vous continuer la partie ?\n  " +
+                                    "[1] Oui \n  " +
+                                    "[2] Non\n  " +
+                                    "Continuer ? [entrez une valeur]: ");
+                    if (PetitsChevaux.choixMenu((byte) 1, (byte) 2) == 2) jouer = false;
+                }
             }
         }
     }
