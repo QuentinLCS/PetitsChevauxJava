@@ -216,7 +216,7 @@ public class Partie implements Serializable {
     private void mangerLesPions(Case cs){
         ArrayList<Pion> chevaux = cs.getChevaux();
         ArrayList<CaseEcurie> ecuries = getPlateau().getEcuries();
-        CaseEcurie ecu = ecuries.get(ecuries.indexOf(chevaux.get(0).getCouleur().getId()));
+        CaseEcurie ecu = ecuries.get(chevaux.get(0).getCouleur().getId());
         for (Pion pion:chevaux) getPlateau().deplacerPionA(pion, ecu);
     }
 }
