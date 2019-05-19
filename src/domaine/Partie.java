@@ -160,7 +160,7 @@ public class Partie implements Serializable {
             }
             plateau.deplacerPionA(choix, arrivee);
         }
-
+        plateau.afficher();
         if (de == 6){
             jouerUnTour();
         }
