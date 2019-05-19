@@ -21,22 +21,23 @@ public class Plateau {
      */
     public Plateau() {
 
-        this.echelles = new ArrayList<ArrayList<CaseDEchelle>>();
-        this.chemin = new LinkedList<CaseDeChemin>();
-        this.ecuries = new ArrayList<CaseEcurie>();
+        this.echelles = new ArrayList<>();
+        this.chemin = new LinkedList<>();
+        this.ecuries = new ArrayList<>();
 
         for (byte i = 0; i < 8; i++)
             this.chemin.add(new CaseDeChemin());
 
         for (byte i = 0; i < 4; i++) {
-            this.echelles.add(new ArrayList<CaseDEchelle>());
+            this.echelles.add(new ArrayList<>());
             this.ecuries.add(new CaseEcurie(Couleur.values()[i]));
             for (byte j = 0; j < 6; j++) {
                 this.echelles.get(i).add(new CaseDEchelle(Couleur.values()[i]));
                 for (byte k = 0; k < 2; k++)
                     this.chemin.add(new CaseDeChemin());
-                if (j < 4)
-                    this.ecuries.get(i).ajouteCheval(new Pion(Couleur.values()[i]+"_"+j, Couleur.values()[i]));
+                if (j < 4) {
+                    this.ecuries.get(i).ajouteCheval(new Pion(Couleur.values()[i] + "_" + j, Couleur.values()[i]));
+                }
             }
         }
     }
@@ -58,8 +59,8 @@ public class Plateau {
      */
     public void afficher(){
         String couleur;
-        ArrayList<Pion> chevaux = new ArrayList<>();
-        byte valEchelle, numCase = 0, numEquipe, nbChevauxEcurie;
+        ArrayList<Pion> chevaux;
+        byte valEchelle, numCase = 0, numEquipe;
 
         for (byte i = 0; i < 15; i++) {
 
