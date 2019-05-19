@@ -160,7 +160,7 @@ public class Partie implements Serializable {
                 arrivee = echelleDuJoueur.get(echelleDuJoueur.indexOf(choix.getPosition()) + 1);
             }
             else{
-                arrivee = plateau.getChemin().get(plateau.getChemin().indexOf(choix.getPosition())+de);
+                arrivee = plateau.getChemin().get((plateau.getChemin().indexOf(choix.getPosition())+de)%56);
                 if(!(arrivee.getChevaux().isEmpty()) && arrivee.getChevaux().get(0).getCouleur()!=joueurCourant.getCouleur()) mangerLesPions(arrivee);
             }
             plateau.deplacerPionA(choix, arrivee);
@@ -216,7 +216,7 @@ public class Partie implements Serializable {
     private void mangerLesPions(Case cs){
         ArrayList<Pion> chevaux = cs.getChevaux();
         ArrayList<CaseEcurie> ecuries = getPlateau().getEcuries();
-        CaseEcurie ecu = ecuries.get(ecuries.indexOf(new CaseEcurie(chevaux.get(0).getCouleur())));
+        CaseEcurie ecu = ecuries.get(ecuries.indexOf(chevaux.get(0).getCouleur().getId()));
         for (Pion pion:chevaux) getPlateau().deplacerPionA(pion, ecu);
     }
 }

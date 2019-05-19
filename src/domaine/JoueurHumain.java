@@ -67,7 +67,7 @@ public class JoueurHumain extends Joueur {
                 while (i<distance && continuer){
                     i++;
                     continuer=plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+i)%56).peutPasser(pion);
-                    if (plateau.getChemin().get(plateau.getChemin().indexOf(pion.getPosition())+i).equals(caseDevantEchelle)) continuer=false;
+                    if (plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+i)%56).equals(caseDevantEchelle)) continuer=false;
                 }
                 if (continuer) {
                     chevauxDeplacables.add(pion);
@@ -93,7 +93,6 @@ public class JoueurHumain extends Joueur {
             } while((saisie < 1 || saisie > chevauxDeplacables.size()) || continuer);
             choix = chevauxDeplacables.get(saisie-1);
         }
-
         return choix;
     }
 }
