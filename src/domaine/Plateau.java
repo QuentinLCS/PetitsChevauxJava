@@ -106,8 +106,6 @@ public class Plateau {
                         chevaux = chemin.get(indexCase[numCase]).getChevaux();
                         couleur = chevaux.isEmpty() ? Couleur.values()[0].getCodeCouleur() : chevaux.get(0).getCouleur().getCodeCouleur();
                         System.out.print(couleur + "     " + (!chevaux.isEmpty() && k == 1 ? chevaux.size()+"\u265e" : "  ") + "     \033[0m");
-                        System.out.print(chevaux);
-                        System.out.print(numCase);
                         numCase++;
                     }
                 }
@@ -126,7 +124,5 @@ public class Plateau {
         caseDepart.getChevaux().remove(pion);
         caseCible.ajouteCheval(pion);
         pion.setPosition(caseCible);
-        System.out.println("pion = " +pion);
-        for (Case c : ecuries) System.out.println("ecurie : "+c.getChevaux());
     }
 }

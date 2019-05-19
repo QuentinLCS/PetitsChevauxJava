@@ -20,7 +20,7 @@ public class PetitsChevaux {
         while (!fermerProgramme) {
             if (!jouer)
                 petitschevaux.afficherMenu();
-            else
+            else {
                 for (Joueur joueur : partie.getJoueurs()) {
                     PetitsChevaux.clear();
                     partie.getPlateau().afficher();
@@ -28,6 +28,14 @@ public class PetitsChevaux {
                     partie.jouerUnTour();
                     Thread.sleep(3000);
                 }
+                partie.sauvegarderPartie("last.txt");
+                System.out.println(
+                        "Voulez-vous continuer la partie ?\n  " +
+                                "[1] Oui \n  " +
+                                "[2] Non\n  " +
+                                "Continuer ? [entrez une valeur]: ");
+                PetitsChevaux.choixMenu((byte)1, (byte)2) == 2 ? jouer = false;
+            }
         }
     }
 
@@ -57,7 +65,7 @@ public class PetitsChevaux {
                 jouer = true;
                 break;
             case 2 :
-                System.out.println("INDISPONIBLE");
+                partie.chargerPartie("last.txt");
                 break;
             case 3 :
                 this.afficherOption();
