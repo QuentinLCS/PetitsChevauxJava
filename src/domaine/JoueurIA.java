@@ -28,10 +28,10 @@ public class JoueurIA extends Joueur {
         boolean continuer;
 
 
-        if (distance == 6) if (nbChevauxVerifies > 0) chevauxDeplacables.add(this.getChevaux().get(0)); //Parcours les chevaux restant a.k.a ceux n'étant pas dans l'écurie
-        for(int k=nbChevauxVerifies; k<4; k++){
+        if (distance == 6 && nbChevauxVerifies > 0) chevauxDeplacables.add(plateau.getEcuries().get(getCouleur().getId()).getChevaux().get(0)); //Parcours les chevaux restant a.k.a ceux n'étant pas dans l'écurie
+        for(int k=0; k<(4-nbChevauxVerifies); k++){
             Pion pion=getChevaux().get(k);
-            if(getChevaux().get(k).getPosition() instanceof CaseEcurie){
+            if(getChevaux().get(k).getPosition() instanceof CaseDEchelle){
                 if (echelleJoueur.get(echelleJoueur.indexOf(pion.getPosition())+1).peutPasser(pion) && echelleJoueur.indexOf(pion.getPosition())+2== distance) { //Condition pour passer à la case d'échelle suivante
                     chevauxDeplacables.add(pion);
                 }
@@ -44,11 +44,15 @@ public class JoueurIA extends Joueur {
                 i=1;
                 while (i<distance && continuer){
                     continuer=plateau.getChemin().get(plateau.getChemin().indexOf(pion.getPosition())+i).peutPasser(pion);
+                    i++;
                     if (plateau.getChemin().get(plateau.getChemin().indexOf(pion.getPosition())+i).equals(caseDevantEchelle)) continuer=false;
                 }
                 if (continuer) chevauxDeplacables.add(pion);
             }
         }
+
+        for (Pion pion:chevauxDeplacables) System.out.println("- "+pion);
+
         if (chevauxDeplacables.isEmpty()) choix=null;
         else choix = chevauxDeplacables.get(chevauxDeplacables.indexOf(choixStrategie(chevauxDeplacables, distance, plateau)));
         return choix;

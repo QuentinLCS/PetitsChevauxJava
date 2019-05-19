@@ -42,8 +42,12 @@ public class JoueurHumain extends Joueur {
 
         Scanner scan = new Scanner(System.in);
 
-        if (distance == 6) if (nbChevauxVerifies > 0) chevauxDeplacables.add(this.getChevaux().get(0)); //Parcours les chevaux restant a.k.a ceux n'étant pas dans l'écurie
-        for(int k=nbChevauxVerifies; k<4; k++){
+        if (distance == 6 && nbChevauxVerifies > 0) {
+            chevauxDeplacables.add(plateau.getEcuries().get(getCouleur().getId()).getChevaux().get(0)); //Parcours les chevaux restant a.k.a ceux n'étant pas dans l'écurie
+            System.out.println(proposition+ " : Sortir un pion de l'écurie");
+        }
+
+        for(int k=0; k<(4-nbChevauxVerifies); k++){
             Pion pion=getChevaux().get(k);
             if(getChevaux().get(k).getPosition() instanceof CaseDEchelle){
                 if (echelleJoueur.get(echelleJoueur.indexOf(pion.getPosition())+1).peutPasser(pion) && echelleJoueur.indexOf(pion.getPosition())+2== distance) { //Condition pour passer à la case d'échelle suivante
@@ -61,16 +65,18 @@ public class JoueurHumain extends Joueur {
                 continuer=true;
                 i=1;
                 while (i<distance && continuer){
+                    i++;
                     continuer=plateau.getChemin().get(plateau.getChemin().indexOf(pion.getPosition())+i).peutPasser(pion);
                     if (plateau.getChemin().get(plateau.getChemin().indexOf(pion.getPosition())+i).equals(caseDevantEchelle)) continuer=false;
                 }
-                if (continuer) chevauxDeplacables.add(pion);
+                if (continuer) {
+                    chevauxDeplacables.add(pion);
+                    System.out.println(proposition + " : Bouger le pion n°" + getChevaux().indexOf(pion));
+                }
             }
         }
 
-        if (distance==6 && nbChevauxVerifies>0){
-            System.out.println(proposition+ " : Sortir un pion de l'écurie");
-        }
+
 
         if (chevauxDeplacables.isEmpty()) choix = null;
         else {
@@ -85,7 +91,6 @@ public class JoueurHumain extends Joueur {
                     scan.nextLine();
                 }
             } while((saisie < 1 || saisie > chevauxDeplacables.size()) || continuer);
-
             choix = chevauxDeplacables.get(saisie-1);
         }
 
