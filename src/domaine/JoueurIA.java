@@ -70,8 +70,9 @@ public class JoueurIA extends Joueur {
         }
         else {
             ArrayList<Pion> listeChoix = new ArrayList<>(6); // Création d'une ArrayList pour stocker des pions en fonction de leur importance
-            for (int j=0; j<6; j++) listeChoix.add(new Pion("test",getCouleur()));
-            if (!(getCaseDeDepart().getChevaux().isEmpty()) && de==6) listeChoix.set(0,chevauxDeplacables.get(0));
+            Pion test = new Pion("test",getCouleur());
+            for (int j=0; j<6; j++) listeChoix.add(test);
+            if (!(getCaseDeDepart().getChevaux().isEmpty()) && de==6) if (getCaseDeDepart().getChevaux().get(0).getCouleur()!=chevauxDeplacables.get(0).getCouleur() ) listeChoix.set(0,chevauxDeplacables.get(0));
             else if (de == 6) listeChoix.set(4,chevauxDeplacables.get(0));
             else{
                 for (Pion cheval : chevauxDeplacables){
@@ -83,7 +84,10 @@ public class JoueurIA extends Joueur {
                 }
             }
             int parcours = 0;
-            while (listeChoix.get(parcours).equals(new Pion("test",getCouleur()))) parcours++;
+            while (listeChoix.get(parcours).equals(test)){
+                System.out.println(listeChoix.get(parcours));
+                parcours++;
+            }
             choix = listeChoix.get(parcours);
         }
         return choix;

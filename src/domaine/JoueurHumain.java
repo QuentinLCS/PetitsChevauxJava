@@ -52,13 +52,13 @@ public class JoueurHumain extends Joueur {
             if(getChevaux().get(k).getPosition() instanceof CaseDEchelle){
                 if (echelleJoueur.get(echelleJoueur.indexOf(pion.getPosition())+1).peutPasser(pion) && echelleJoueur.indexOf(pion.getPosition())+2== distance) { //Condition pour passer à la case d'échelle suivante
                     chevauxDeplacables.add(proposition,pion);
-                    System.out.println(proposition+ " : Bouger le pion n°"+getChevaux().indexOf(pion)+1);
+                    System.out.println(proposition+ " : Bouger le pion n°"+(getChevaux().indexOf(pion)+1));
                     proposition++;
                 }
             }
             else if (pion.getPosition().equals(caseDevantEchelle) && distance==1) { //Condition pour monter sur l'échelle
                 chevauxDeplacables.add(proposition,pion);
-                System.out.println(proposition + " : Bouger le pion n°" + getChevaux().indexOf(pion)+1);
+                System.out.println(proposition + " : Bouger le pion n°" + (getChevaux().indexOf(pion)+1));
                 proposition++;
             }
             else {
@@ -66,12 +66,12 @@ public class JoueurHumain extends Joueur {
                 i=1;
                 while (i<distance && continuer){
                     i++;
-                    continuer=plateau.getChemin().get(plateau.getChemin().indexOf(pion.getPosition())+i).peutPasser(pion);
+                    continuer=plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+i)%56).peutPasser(pion);
                     if (plateau.getChemin().get(plateau.getChemin().indexOf(pion.getPosition())+i).equals(caseDevantEchelle)) continuer=false;
                 }
                 if (continuer) {
                     chevauxDeplacables.add(pion);
-                    System.out.println(proposition + " : Bouger le pion n°" + getChevaux().indexOf(pion)+1);
+                    System.out.println(proposition + " : Bouger le pion n°" + (getChevaux().indexOf(pion)+1));
                 }
             }
         }

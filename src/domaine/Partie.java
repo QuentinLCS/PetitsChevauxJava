@@ -125,7 +125,7 @@ public class Partie implements Serializable {
         Case arrivee;
         int de;
 
-        for (Pion pion:joueurCourant.getChevaux()) System.out.println(pion);
+        //for (Pion pion:joueurCourant.getChevaux()) System.out.println(pion);
 
         if (joueurCourant instanceof JoueurHumain){
             Scanner sc = new Scanner(System.in);
