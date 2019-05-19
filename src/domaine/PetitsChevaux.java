@@ -34,7 +34,7 @@ public class PetitsChevaux {
                                 "[1] Oui \n  " +
                                 "[2] Non\n  " +
                                 "Continuer ? [entrez une valeur]: ");
-                PetitsChevaux.choixMenu((byte)1, (byte)2) == 2 ? jouer = false;
+                if (PetitsChevaux.choixMenu((byte)1, (byte)2) == 2) jouer = false;
             }
         }
     }

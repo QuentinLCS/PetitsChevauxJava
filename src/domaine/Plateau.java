@@ -1,7 +1,6 @@
 package domaine;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
  * Class Plateau, contenant tous les nécessaires du plateau et de ses interactions.
@@ -10,7 +9,7 @@ import java.util.LinkedList;
 public class Plateau {
 
     private ArrayList<ArrayList<CaseDEchelle>> echelles;
-    private LinkedList<CaseDeChemin> chemin;
+    private ArrayList<CaseDeChemin> chemin;
     private ArrayList<CaseEcurie> ecuries;
 
     /**
@@ -22,7 +21,7 @@ public class Plateau {
     public Plateau() {
 
         this.echelles = new ArrayList<>();
-        this.chemin = new LinkedList<>();
+        this.chemin = new ArrayList<>();
         this.ecuries = new ArrayList<>();
 
         for (byte i = 0; i < 8; i++)
@@ -43,7 +42,7 @@ public class Plateau {
         return this.echelles;
     }
 
-    public LinkedList<CaseDeChemin> getChemin() {
+    public ArrayList<CaseDeChemin> getChemin() {
         return this.chemin;
     }
 
