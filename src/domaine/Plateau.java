@@ -57,9 +57,9 @@ public class Plateau {
      * Affichage en grande dimension, couleur du plateau et de ses interactions.
      */
     public void afficher(){
-        byte valEchelle;
-        byte numCase = 0;
-        byte numEquipe;
+        String couleur;
+        ArrayList<Pion> chevaux = new ArrayList<>();
+        byte valEchelle, numCase = 0, numEquipe, nbChevauxEcurie;
 
         for (byte i = 0; i < 15; i++) {
 
@@ -74,13 +74,21 @@ public class Plateau {
                         if (j <= 7) numEquipe = 2;
                         else numEquipe = 3;
 
+                    // CENTRE -----------------------------------------
                     if (i == 7 && j == 7)
                         System.out.print("\033[107m            \033[0m");
 
-                    else if ((i < 6 || i > 8) && (j < 6 || j > 8))
-                        System.out.print(echelles.get(numEquipe).get(0).getCouleur().getCodeCouleurFond()+ "            \033[0m");
+                    // ECURIES ----------------------------------------
+                    else if ((i < 6 || i > 8) && (j < 6 || j > 8)) {
+                        chevaux = ecuries.get(numEquipe).getChevaux();
+                        couleur = ecuries.get(numEquipe).getCouleur().getCodeCouleurFond();
+                        if ((i == 2 && j == 2) || (i == 2 && j == 12) || (i == 12 && j ==2) || (i == 12 && j == 12))
+                            System.out.print(couleur+ "     " +(chevaux.isEmpty() || k != 1 ? "  " : chevaux.size()+"\u265e")+ "     \033[0m");
+                        else
+                            System.out.print(couleur+ "            \033[0m");
 
-                    else if ((i == 7 && j != 0 && j != 14)|| (j == 7 && i != 0 && i != 14)) {
+                    // ECHELLES ---------------------------------------
+                    } else if ((i == 7 && j != 0 && j != 14)|| (j == 7 && i != 0 && i != 14)) {
                         if (i == 7)
                             if (j < 8) valEchelle = j;
                             else valEchelle = (byte)(14 - j);
@@ -88,13 +96,17 @@ public class Plateau {
                             if (i < 8) valEchelle = i;
                             else valEchelle = (byte)(14 - i);
 
-                        System.out.print(echelles.get(numEquipe).get(0).getCouleur().getCodeCouleurFond()+ "      " + (k == 1 ? valEchelle : " ") + "     \033[0m");
+                        chevaux = echelles.get(numEquipe).get(valEchelle-1).getChevaux();
+                        couleur = echelles.get(numEquipe).get(0).getCouleur().getCodeCouleurFond();
+                        System.out.print(couleur+ "      " + (k == 1 ? (chevaux.isEmpty() ? valEchelle : "\u265e") : " ") + "     \033[0m");
 
-                    } else
-                        if (!chemin.get(numCase).getChevaux().isEmpty() && k == 1)
-                            System.out.print(chemin.get(numCase++).getChevaux().get(0).getCouleur().getCodeCouleur()+ "            \033[0m");
-                        else
-                            System.out.print("\033[107m            \033[0m");
+                    // CHEMIN ------------------------------------------
+                    } else {
+                        chevaux = chemin.get(numCase).getChevaux();
+                        couleur = chevaux.isEmpty() ? Couleur.values()[0].getCodeCouleur() : chevaux.get(0).getCouleur().getCodeCouleur();
+                        System.out.print(couleur + "     " + (chevaux.isEmpty() || k != 1 ? "  " : chevaux.size()+"\u265e") + "     \033[0m");
+                        if (k == 2) numCase++;
+                    }
                 }
                 System.out.println();
             }
