@@ -1,12 +1,13 @@
 package domaine;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Class Plateau, contenant tous les nécessaires du plateau et de ses interactions.
  * @author Quentin LECHASLES
  */
-public class Plateau {
+public class Plateau implements Serializable {
 
     private ArrayList<ArrayList<CaseDEchelle>> echelles;
     private ArrayList<CaseDeChemin> chemin;

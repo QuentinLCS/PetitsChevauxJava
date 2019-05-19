@@ -224,7 +224,7 @@ public class Partie implements Serializable {
             oos = new ObjectOutputStream(
                     new BufferedOutputStream(
                             new FileOutputStream(
-                                    new File(fichier))));
+                                    new File("saves/"+fichier))));
 
             oos.writeObject(this);
 
@@ -247,7 +247,7 @@ public class Partie implements Serializable {
             ois = new ObjectInputStream(
                     new BufferedInputStream(
                             new FileInputStream(
-                                    new File(fichier))));
+                                    new File("saves/"+fichier))));
 
             try {
                 System.out.println("Affichage des jeux :");

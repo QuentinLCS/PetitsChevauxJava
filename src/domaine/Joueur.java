@@ -2,13 +2,14 @@ package domaine;
 
 import exceptions.ConflitDeCouleurException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Classe abstraite des joueurs.
  * Parent de JoueurHumain et JoueurIA
  */
-public abstract class Joueur {
+public abstract class Joueur implements Serializable {
 
     private String nom;
     private Case caseDeDepart;

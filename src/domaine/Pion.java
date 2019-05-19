@@ -1,9 +1,11 @@
 package domaine;
 
+import java.io.Serializable;
+
 /**
  * Classe de l'instance pion représentant les chevaux.
  */
-public class Pion {
+public class Pion implements Serializable {
     private String id;
     private Couleur couleur;
     private Case position;

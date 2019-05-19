@@ -1,11 +1,12 @@
 package domaine;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Classe case, parent de toutes les autres instances de type case du plateau.
  */
-public abstract class Case {
+public abstract class Case implements Serializable{
     private ArrayList<Pion> chevaux;
 
     /**
