@@ -45,7 +45,7 @@ public class JoueurHumain extends Joueur {
         if (distance == 6) if (nbChevauxVerifies > 0) chevauxDeplacables.add(this.getChevaux().get(0)); //Parcours les chevaux restant a.k.a ceux n'étant pas dans l'écurie
         for(int k=nbChevauxVerifies; k<4; k++){
             Pion pion=getChevaux().get(k);
-            if(getChevaux().get(k).getPosition() instanceof CaseEcurie){
+            if(getChevaux().get(k).getPosition() instanceof CaseDEchelle){
                 if (echelleJoueur.get(echelleJoueur.indexOf(pion.getPosition())+1).peutPasser(pion) && echelleJoueur.indexOf(pion.getPosition())+2== distance) { //Condition pour passer à la case d'échelle suivante
                     chevauxDeplacables.add(proposition,pion);
                     System.out.println(proposition+ " : Bouger le pion n°"+getChevaux().indexOf(pion));

@@ -74,6 +74,9 @@ public class Partie {
             int de;
             System.out.println("Déterminons maintenant l'ordre de jeu !");
             for (Joueur player : joueurs) {
+                for (Pion cheval : player.getChevaux()){
+                    cheval.setPosition(plateau.getEcuries().get(player.getCouleur().getId()));
+                }
                 switch (player.getCouleur().getId()) {
                     case 0:
                         player.setCaseDeDepart(plateau.getChemin().get(44));
@@ -131,6 +134,9 @@ public class Partie {
     public void jouerUnTour() throws ConflitDeCouleurException{
         Case arrivee;
         int de;
+
+        for (Pion pion:joueurCourant.getChevaux()) System.out.println(pion.getPosition());
+
         if (joueurCourant instanceof JoueurHumain){
             Scanner sc = new Scanner(System.in);
             System.out.print("\nJoueur " + joueurCourant.getNom() + " (" + joueurCourant.getCouleur().getCodeCouleurFond() + "     \033[0m), c'est à vous de lancer le dé ! [Appuyez sur entrée]");
