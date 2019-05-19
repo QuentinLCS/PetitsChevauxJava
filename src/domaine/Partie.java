@@ -2,26 +2,15 @@ package domaine;
 
 import exceptions.*;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 /**
  * Classe instaciable de la Partie.
  */
-public class Partie {
+public class Partie implements Serializable {
 
     private Random de = new Random() ;
     private Joueur joueurCourant;
@@ -76,6 +65,7 @@ public class Partie {
             for (Joueur player : joueurs) {
                 for (Pion cheval : player.getChevaux()){
                     cheval.setPosition(plateau.getEcuries().get(player.getCouleur().getId()));
+                    plateau.getEcuries().get(player.getCouleur().getId()).ajouteCheval(cheval);
                 }
                 switch (player.getCouleur().getId()) {
                     case 0:

@@ -50,9 +50,5 @@ public abstract class Joueur {
         return nom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
     public abstract Pion choisirPion (int num, Plateau plateau) throws ConflitDeCouleurException;
 }

@@ -29,4 +29,13 @@ public class Pion {
     public void setPosition(Case position) {
         this.position = position;
     }
+
+    @Override
+    public String toString() {
+        return "Pion{" +
+                "id='" + id + '\'' +
+                ", couleur=" + couleur +
+                ", position=" + position +
+                '}';
+    }
 }
