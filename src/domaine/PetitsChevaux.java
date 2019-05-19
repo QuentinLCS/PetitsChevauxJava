@@ -26,7 +26,7 @@ public class PetitsChevaux {
                     PetitsChevaux.clear();
                     partie.getPlateau().afficher();
                     partie.setJoueurCourant(joueur);
-                    partie.jouerUnTour();
+                    partie.jouerUnTour(true);
                     Thread.sleep(3000);
                 }
                 PetitsChevaux.sauvegarderPartie("last.txt");

@@ -121,7 +121,12 @@ public class Partie implements Serializable {
         return de.nextInt(6)+1;
     }
 
-    public void jouerUnTour() throws ConflitDeCouleurException{
+    /**
+     * Gestion complète d'un tour de jeu
+     * @param rejoue pour gérer le cas où plusieurs 6 sont fait à la suite
+     * @throws ConflitDeCouleurException
+     */
+    public void jouerUnTour(boolean rejoue) throws ConflitDeCouleurException{
         Case arrivee;
         int de;
 
@@ -161,8 +166,10 @@ public class Partie implements Serializable {
             plateau.deplacerPionA(choix, arrivee);
         }
         plateau.afficher();
-        if (de == 6){
-            jouerUnTour();
+
+        if (de == 6 && rejoue){
+            jouerUnTour(false);
+
         }
     }
 

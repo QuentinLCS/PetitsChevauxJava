@@ -3,9 +3,7 @@ package domaine;
 import exceptions.ConflitDeCouleurException;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Random;
-import java.util.Scanner;
 
 public class JoueurIA extends Joueur {
 
@@ -16,6 +14,13 @@ public class JoueurIA extends Joueur {
         this.difficulte=difficulte;
     }
 
+    /**
+     *
+     * @param distance
+     * @param plateau
+     * @return
+     * @throws ConflitDeCouleurException
+     */
     @Override
     public Pion choisirPion(int distance, Plateau plateau) throws ConflitDeCouleurException {
         ArrayList<Pion> chevauxDeplacables = new ArrayList<>();
@@ -51,13 +56,19 @@ public class JoueurIA extends Joueur {
             }
         }
 
-        for (Pion pion:chevauxDeplacables) System.out.println("- "+pion);
 
         if (chevauxDeplacables.isEmpty()) choix=null;
         else choix = chevauxDeplacables.get(chevauxDeplacables.indexOf(choixStrategie(chevauxDeplacables, distance, plateau)));
         return choix;
     }
 
+    /**
+     *
+     * @param chevauxDeplacables
+     * @param de
+     * @param plateau
+     * @return
+     */
     public Pion choixStrategie(ArrayList<Pion> chevauxDeplacables, int de, Plateau plateau){
         Pion choix;
         if (difficulte == 1){
@@ -72,14 +83,19 @@ public class JoueurIA extends Joueur {
             ArrayList<Pion> listeChoix = new ArrayList<>(6); // Création d'une ArrayList pour stocker des pions en fonction de leur importance
             Pion test = new Pion("test",getCouleur());
             for (int j=0; j<6; j++) listeChoix.add(test);
-            if (!(getCaseDeDepart().getChevaux().isEmpty()) && de==6) if (getCaseDeDepart().getChevaux().get(0).getCouleur()!=chevauxDeplacables.get(0).getCouleur() ) listeChoix.set(0,chevauxDeplacables.get(0));
-            else if (de == 6) listeChoix.set(4,chevauxDeplacables.get(0));
+            if (!(getCaseDeDepart().getChevaux().isEmpty()) && de==6) {
+                if (getCaseDeDepart().getChevaux().get(0).getCouleur() != chevauxDeplacables.get(0).getCouleur()) {
+                    listeChoix.set(0, chevauxDeplacables.get(0));
+                }
+            }
+
             else{
                 for (Pion cheval : chevauxDeplacables){
                     Case arrivee=plateau.getChemin().get(plateau.getChemin().indexOf(cheval.getPosition())+de);
                     if (!arrivee.getChevaux().isEmpty() && arrivee.getChevaux().get(0).getCouleur()!=cheval.getCouleur()) listeChoix.set(1,cheval);
                     else if (cheval.getPosition().equals(plateau.getChemin().get(plateau.getChemin().indexOf(getCaseDeDepart())-1)) && de==1) listeChoix.set(2,cheval);
                     else if (cheval.getPosition() instanceof CaseDEchelle) listeChoix.set(3,cheval);
+                    else if (de == 6) listeChoix.set(4,chevauxDeplacables.get(0));
                     else listeChoix.set(5,cheval);
                 }
             }
