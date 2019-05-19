@@ -25,6 +25,7 @@ public class PetitsChevaux {
                     partie.getPlateau().afficher();
                     partie.setJoueurCourant(joueur);
                     partie.jouerUnTour();
+                    Thread.sleep(3000);
                 }
         }
     }
@@ -147,6 +148,7 @@ public class PetitsChevaux {
                 continuer = false;
                 saisie = scan.nextByte();
             } catch (InputMismatchException e) {
+                System.err.println("Saisie incorrecte. Veuillez suivre les instructions.");
                 continuer = true;
                 scan.nextLine();
             }

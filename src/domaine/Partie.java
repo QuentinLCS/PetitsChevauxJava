@@ -3,7 +3,6 @@ package domaine;
 import exceptions.*;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -37,31 +36,21 @@ public class Partie {
      * - Nombre de Joueurs
      * - Initialisation des joueurs.
      */
-    public Partie()  {
+    public Partie() {
         this.initialiserPlateau();
         Scanner sc = new Scanner(System.in);
-        boolean continuer;
-        do {
-            continuer = false;
-            try {
-                System.out.print("Veuillez entrer le nombre de joueurs de la partie (entre 1 et 4) : ");
-                int nb = sc.nextByte();
-                initialiserJoueurs(nb);
-            }
-            catch (InputMismatchException|PasDeJoueurException e) { continuer = true; sc.nextLine(); }
-        } while (continuer || joueurs.isEmpty());
-
+        System.out.print("Veuillez entrer le nombre de joueurs de la partie (entre 1 et 4) : ");
+        byte nbJoueur = PetitsChevaux.choixMenu((byte)1, (byte)4);
+        initialiserJoueurs(nbJoueur);
     }
 
     /**
      * Permet d'initialiser les instances de joueurs humains, leur assigne une couleur et choisir qui commence
      * @param nbJoueur Nombre de joueurs renseignés par le joueur dans le constructeur.
-     * @throws PasDeJoueurException dans le cas où un petit malin voudrait jouer sans joueur
      */
-    public void initialiserJoueurs(int nbJoueur) throws PasDeJoueurException {
+    public void initialiserJoueurs(int nbJoueur) {
         joueurs = new ArrayList<>(nbJoueur);
         ArrayList<Joueur> joueurs = new ArrayList<>(nbJoueur);
-        if (nbJoueur <= 0) throw new PasDeJoueurException();
         if (nbJoueur <= 4) {
             Scanner sc = new Scanner(System.in);
             String nom;
