@@ -104,7 +104,8 @@ public class Plateau {
                         chevaux = chemin.get(indexCase[numCase]).getChevaux();
                         couleur = chevaux.isEmpty() ? Couleur.values()[0].getCodeCouleur() : chevaux.get(0).getCouleur().getCodeCouleur();
                         System.out.print(couleur + "     " + (chevaux.isEmpty() || k != 1 ? "  " : chevaux.size()+"\u265e") + "     \033[0m");
-                        numCase++;
+                        if (k == 2) numCase++;
+                        System.out.print("test = "+chevaux);
                     }
                 }
                 System.out.println();
