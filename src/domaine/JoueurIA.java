@@ -48,9 +48,9 @@ public class JoueurIA extends Joueur {
                 continuer=true;
                 i=1;
                 while (i<distance && continuer){
-                    continuer=plateau.getChemin().get(plateau.getChemin().indexOf(pion.getPosition())+i).peutPasser(pion);
+                    continuer=plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+i)%56).peutPasser(pion);
                     i++;
-                    if (plateau.getChemin().get(plateau.getChemin().indexOf(pion.getPosition())+i).equals(caseDevantEchelle)) continuer=false;
+                    if (plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+i)%56).equals(caseDevantEchelle)) continuer=false;
                 }
                 if (continuer) chevauxDeplacables.add(pion);
             }
@@ -91,7 +91,7 @@ public class JoueurIA extends Joueur {
 
             else{
                 for (Pion cheval : chevauxDeplacables){
-                    Case arrivee=plateau.getChemin().get(plateau.getChemin().indexOf(cheval.getPosition())+de);
+                    Case arrivee=plateau.getChemin().get((plateau.getChemin().indexOf(cheval.getPosition())+de)%56);
                     if (!arrivee.getChevaux().isEmpty() && arrivee.getChevaux().get(0).getCouleur()!=cheval.getCouleur()) listeChoix.set(1,cheval);
                     else if (cheval.getPosition().equals(plateau.getChemin().get(plateau.getChemin().indexOf(getCaseDeDepart())-1)) && de==1) listeChoix.set(2,cheval);
                     else if (cheval.getPosition() instanceof CaseDEchelle) listeChoix.set(3,cheval);
@@ -101,7 +101,6 @@ public class JoueurIA extends Joueur {
             }
             int parcours = 0;
             while (listeChoix.get(parcours).equals(test)){
-                System.out.println(listeChoix.get(parcours));
                 parcours++;
             }
             choix = listeChoix.get(parcours);
