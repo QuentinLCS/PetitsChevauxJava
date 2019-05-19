@@ -147,12 +147,13 @@ public class PetitsChevaux {
             try {
                 continuer = false;
                 saisie = scan.nextByte();
-            } catch (InputMismatchException e) {
+                if (saisie < min || saisie > max) throw new Exception();
+            } catch (Exception e) {
                 System.err.println("Saisie incorrecte. Veuillez suivre les instructions.");
                 continuer = true;
                 scan.nextLine();
             }
-        } while (saisie < min || saisie > max || continuer);
+        } while (continuer);
 
         return saisie;
     }
