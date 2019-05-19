@@ -212,58 +212,5 @@ public class Partie implements Serializable {
         CaseEcurie ecu = ecuries.get(ecuries.indexOf(new CaseEcurie(chevaux.get(0).getCouleur())));
         for (Pion pion:chevaux) getPlateau().deplacerPionA(pion, ecu);
     }
-
-    /**
-     * Sauvegarder dans un fichier donné en paramètre.
-     * @param fichier Nom du fichier en format string.
-     */
-    public void sauvegarderPartie(String fichier) {
-        ObjectOutputStream oos;
-
-        try {
-            oos = new ObjectOutputStream(
-                    new BufferedOutputStream(
-                            new FileOutputStream(
-                                    new File("saves/"+fichier))));
-
-            oos.writeObject(this);
-
-            oos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Charger un fichier donné en paramètre.
-     * @param fichier Nom du fichier en format string.
-     */
-    public void chargerPartie(String fichier) {
-        ObjectInputStream ois;
-
-        try {
-            ois = new ObjectInputStream(
-                    new BufferedInputStream(
-                            new FileInputStream(
-                                    new File("saves/"+fichier))));
-
-            try {
-                System.out.println("Affichage des jeux :");
-                System.out.println("*************************\n");
-                System.out.println(((Partie)ois.readObject()).toString());
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            ois.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
 

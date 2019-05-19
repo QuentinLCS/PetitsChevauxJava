@@ -2,6 +2,7 @@ package domaine;
 
 import exceptions.ConflitDeCouleurException;
 
+import java.io.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -28,7 +29,7 @@ public class PetitsChevaux {
                     partie.jouerUnTour();
                     Thread.sleep(3000);
                 }
-                partie.sauvegarderPartie("last.txt");
+                PetitsChevaux.sauvegarderPartie("last.txt");
                 System.out.println(
                         "Voulez-vous continuer la partie ?\n  " +
                                 "[1] Oui \n  " +
@@ -65,7 +66,8 @@ public class PetitsChevaux {
                 jouer = true;
                 break;
             case 2 :
-                partie.chargerPartie("last.txt");
+                PetitsChevaux.chargerPartie("last.txt");
+                jouer = true;
                 break;
             case 3 :
                 this.afficherOption();
@@ -128,13 +130,13 @@ public class PetitsChevaux {
         switch (saisie)
         {
             case 1 :
-                partie.chargerPartie("scenario1.txt");
+                PetitsChevaux.chargerPartie("scenario1.txt");
                 break;
             case 2 :
-                partie.chargerPartie("scenario2.txt");
+                PetitsChevaux.chargerPartie("scenario2.txt");
                 break;
             case 3 :
-                partie.chargerPartie("scenario3.txt");
+                PetitsChevaux.chargerPartie("scenario3.txt");
                 break;
             default :
                 this.afficherOption();
@@ -172,5 +174,56 @@ public class PetitsChevaux {
      */
     public static void clear() {
         System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
+
+    /**
+     * Sauvegarder dans un fichier donné en paramètre.
+     * @param fichier Nom du fichier en format string.
+     */
+    public static void sauvegarderPartie(String fichier) {
+        ObjectOutputStream oos;
+
+        try {
+            oos = new ObjectOutputStream(
+                    new BufferedOutputStream(
+                            new FileOutputStream(
+                                    new File("saves/"+fichier))));
+
+            oos.writeObject(partie);
+
+            oos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Charger un fichier donné en paramètre.
+     * @param fichier Nom du fichier en format string.
+     */
+    public static void chargerPartie(String fichier) {
+        ObjectInputStream ois;
+
+        try {
+            ois = new ObjectInputStream(
+                    new BufferedInputStream(
+                            new FileInputStream(
+                                    new File("saves/"+fichier))));
+
+            try {
+                partie = (Partie)ois.readObject();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            ois.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

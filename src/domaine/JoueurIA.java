@@ -88,12 +88,4 @@ public class JoueurIA extends Joueur {
         }
         return choix;
     }
-
-    public byte getDifficulte() {
-        return difficulte;
-    }
-
-    public void setDifficulte(byte difficulte) {
-        this.difficulte = difficulte;
-    }
 }
