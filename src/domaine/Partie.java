@@ -60,6 +60,7 @@ public class Partie {
      */
     public void initialiserJoueurs(int nbJoueur) throws PasDeJoueurException {
         joueurs = new ArrayList<>(nbJoueur);
+        ArrayList<Joueur> joueurs = new ArrayList<>(nbJoueur);
         if (nbJoueur <= 0) throw new PasDeJoueurException();
         if (nbJoueur <= 4) {
             Scanner sc = new Scanner(System.in);
@@ -68,20 +69,6 @@ public class Partie {
                 System.out.print("Entrer le nom du joueur " + (i + 1) + " : ");
                 nom = sc.nextLine();
                 joueurs.add(new JoueurHumain(nom, Couleur.values()[i]));
-                switch (joueurs.get(i).getCouleur().getId()) {
-                    case 0:
-                        joueurs.get(i).setCaseDeDepart(plateau.getChemin().get(44));
-                        break;
-                    case 1:
-                        joueurs.get(i).setCaseDeDepart(plateau.getChemin().get(2));
-                        break;
-                    case 2:
-                        joueurs.get(i).setCaseDeDepart(plateau.getChemin().get(30));
-                        break;
-                    case 3:
-                        joueurs.get(i).setCaseDeDepart(plateau.getChemin().get(16));
-                        break;
-                }
                 System.out.println("Très bien " + joueurs.get(i).getNom() + ", vous serez de couleur " + joueurs.get(i).getCouleur().getCodeCouleurFond() + joueurs.get(i).getCouleur() + "\033[0m !");
             }
             // initialisation des bots
@@ -98,6 +85,20 @@ public class Partie {
             int de;
             System.out.println("Déterminons maintenant l'ordre de jeu !");
             for (Joueur player : joueurs) {
+                switch (player.getCouleur().getId()) {
+                    case 0:
+                        player.setCaseDeDepart(plateau.getChemin().get(44));
+                        break;
+                    case 1:
+                        player.setCaseDeDepart(plateau.getChemin().get(2));
+                        break;
+                    case 2:
+                        player.setCaseDeDepart(plateau.getChemin().get(30));
+                        break;
+                    case 3:
+                        player.setCaseDeDepart(plateau.getChemin().get(16));
+                        break;
+                }
                 if (player instanceof JoueurHumain) {
                     System.out.print("\nJoueur " + player.getNom() + " (" + player.getCouleur().getCodeCouleurFond() + "     \033[0m), c'est à vous de lancer le dé ! [Appuyez sur entrée]");
                     sc.nextLine();
@@ -109,11 +110,16 @@ public class Partie {
                     }
                 } else {
                     de = lancerDe();
+                    System.out.print("\nJoueur " + player.getNom() + " (" + player.getCouleur().getCodeCouleurFond() + "     \033[0m)");
+                    System.out.println("Résultat : " + de);
                     if (de > res) {
                         joueurCourant = player;
                         res = de;
                     }
                 }
+            }
+            for (int i=0; i<4; i++){
+                this.joueurs.add(joueurs.get((joueurs.indexOf(joueurCourant)+i)%4));
             }
         }
     }
@@ -144,7 +150,9 @@ public class Partie {
             System.out.println("Résultat : " + de);
         }
         else{
+            System.out.print("\nC'est au tour du bot " + joueurCourant.getNom() + " (" + joueurCourant.getCouleur().getCodeCouleurFond() + "     \033[0m)");
             de=lancerDe();
+            System.out.println("Résultat : " + de);
         }
 
         Pion choix=joueurCourant.choisirPion(de, plateau);

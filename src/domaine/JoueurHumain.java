@@ -89,7 +89,6 @@ public class JoueurHumain extends Joueur {
             choix = chevauxDeplacables.get(saisie-1);
         }
 
-
         return choix;
     }
 }
