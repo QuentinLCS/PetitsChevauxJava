@@ -13,7 +13,7 @@ public abstract class Case implements Serializable{
      * Constructeur Case() initialise la liste de chevaux pour chaque case.
      */
     public Case() {
-        this.chevaux = new ArrayList<Pion>();
+        this.chevaux = new ArrayList<>();
     }
 
     public ArrayList<Pion> getChevaux() {
