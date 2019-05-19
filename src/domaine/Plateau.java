@@ -58,6 +58,8 @@ public class Plateau {
         String couleur;
         ArrayList<Pion> chevaux;
         byte valEchelle, numCase = 0, numEquipe;
+
+        // Dans l'ordre d'affichage, l'index des cases dans la liste des cases du chemin.
         byte[] indexCase = {0,1,2,55,3,54,4,53,5,52,6,51,7,44,45,46,47,48,49,50,8,9,10,11,12,13,14,43,15,42,41,40,39,38,37,36,22,21,20,19,18,17,16,35,23,34,24,33,25,32,26,31,27,30,29,28};
 
         for (byte i = 0; i < 15; i++) {

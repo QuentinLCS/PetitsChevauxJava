@@ -5,7 +5,7 @@ package domaine;
  * @author Quentin LECHASLES
  */
 public enum Couleur {
-    JAUNE("\033[93;107m","\033[1;97;43m", 0),
+    JAUNE("\033[33;107m","\033[1;97;43m", 0),
     BLEU("\033[94;107m","\033[1;97;104m",1),
     VERT("\033[92;107m","\033[1;97;42m",2),
     ROUGE("\033[91;107m","\033[1;97;101m",3);

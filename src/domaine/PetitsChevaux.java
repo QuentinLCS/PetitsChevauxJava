@@ -22,6 +22,7 @@ public class PetitsChevaux {
                 petitschevaux.afficherMenu();
             else
                 for (Joueur joueur : partie.getJoueurs()) {
+                    PetitsChevaux.clear();
                     partie.getPlateau().afficher();
                     partie.setJoueurCourant(joueur);
                     partie.jouerUnTour();
