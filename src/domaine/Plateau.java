@@ -83,7 +83,7 @@ public class Plateau {
                         chevaux = ecuries.get(numEquipe).getChevaux();
                         couleur = ecuries.get(numEquipe).getCouleur().getCodeCouleurFond();
                         if ((i == 2 && j == 2) || (i == 2 && j == 12) || (i == 12 && j ==2) || (i == 12 && j == 12))
-                            System.out.print(couleur+ "     " +(chevaux.isEmpty() || k != 1 ? "  " : chevaux.size()+"\u265e")+ "     \033[0m");
+                            System.out.print(couleur+ "    " +(chevaux.isEmpty() || k != 1 ? "   " : chevaux.size()+"\u265e")+ "     \033[0m");
                         else
                             System.out.print(couleur+ "            \033[0m");
 
