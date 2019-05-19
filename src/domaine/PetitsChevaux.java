@@ -17,8 +17,6 @@ public class PetitsChevaux {
     public static void main(String[] args) throws InterruptedException, ConflitDeCouleurException {
         PetitsChevaux petitschevaux = new PetitsChevaux();
 
-        // TODO : estPartieTerminee() a utiliser
-
         while (!fermerProgramme) {
             if (!jouer)
                 petitschevaux.afficherMenu();
