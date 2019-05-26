@@ -38,11 +38,8 @@ public class JoueurIA extends Joueur {
             Pion pion=getChevaux().get(k);
             if(getChevaux().get(k).getPosition() instanceof CaseDEchelle){
                 if (pion.getPosition()!=echelleJoueur.get(5)){
-                    System.out.println("1");
                     if ( echelleJoueur.get(echelleJoueur.indexOf(pion.getPosition())+1).peutPasser(pion) ){
-                        System.out.println("2");
                         if ( echelleJoueur.indexOf(pion.getPosition())+2== distance) { //Condition pour passer à la case d'échelle suivante
-                            System.out.println("3");
                             chevauxDeplacables.add(pion);
                         }
                     }

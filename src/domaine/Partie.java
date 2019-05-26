@@ -186,14 +186,16 @@ public class Partie {
     public boolean estPartieTermine(){
         ArrayList<ArrayList<CaseDEchelle>> listeEchelles = getPlateau().getEchelles();
         boolean victoire = false;
-        int i;
+        int i, j=-1;
         for (ArrayList<CaseDEchelle> echelle : listeEchelles ){
             i=5;
+            j++;
             while (i>1 && !echelle.get(i).getChevaux().isEmpty()){
                 i--;
             }
             if (i==1){
                 victoire = true;
+                System.out.println("Bravo au joueur "+getJoueurs().get(j).getNom()+" ("+getJoueurs().get(j).getCouleur().getCodeCouleurFond()+"      \033[0m)");
             }
         }
         return victoire;
