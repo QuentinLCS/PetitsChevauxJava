@@ -27,7 +27,7 @@ public class PetitsChevaux {
                     partie.getPlateau().afficher();
                     partie.setJoueurCourant(joueur);
                     partie.jouerUnTour(true);
-                    Thread.sleep(3000);
+                    Thread.sleep(30);
                 }
                 if (partie.estPartieTermine())
                     jouer = false;

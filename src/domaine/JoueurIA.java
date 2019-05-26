@@ -62,7 +62,7 @@ public class JoueurIA extends Joueur {
                     if (plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+i)%56).equals(getCaseDeDepart())) continuer=false;
                 }
                 if (plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+distance)%56).equals(getCaseDeDepart())) continuer=false;
-                if (continuer) chevauxDeplacables.add(pion);
+                if (continuer && pion.getPosition() instanceof CaseDeChemin) chevauxDeplacables.add(pion);
             }
         }
 
@@ -92,20 +92,22 @@ public class JoueurIA extends Joueur {
         else {
             ArrayList<Pion> listeChoix = new ArrayList<>(6); // Création d'une ArrayList pour stocker des pions en fonction de leur importance
             Pion test = new Pion("test",getCouleur());
+            boolean continuer = true;
             for (int j=0; j<6; j++) listeChoix.add(test);
             if (!(getCaseDeDepart().getChevaux().isEmpty()) && de==6) {
                 if (getCaseDeDepart().getChevaux().get(0).getCouleur() != chevauxDeplacables.get(0).getCouleur()) {
                     listeChoix.set(0, chevauxDeplacables.get(0));
+                    continuer = false;
                 }
             }
 
-            else{
+            if (continuer){
                 for (Pion cheval : chevauxDeplacables){
                     Case arrivee=plateau.getChemin().get((plateau.getChemin().indexOf(cheval.getPosition())+de)%56);
                     if (!arrivee.getChevaux().isEmpty() && arrivee.getChevaux().get(0).getCouleur()!=cheval.getCouleur()) listeChoix.set(1,cheval);
                     else if (cheval.getPosition().equals(plateau.getChemin().get(plateau.getChemin().indexOf(getCaseDeDepart())-1)) && de==1) listeChoix.set(2,cheval);
                     else if (cheval.getPosition() instanceof CaseDEchelle) listeChoix.set(3,cheval);
-                    else if (de == 6) listeChoix.set(4,chevauxDeplacables.get(0));
+                    else if (de == 6 && cheval.getPosition() instanceof CaseEcurie) listeChoix.set(4,cheval);
                     else listeChoix.set(5,cheval);
                 }
             }
