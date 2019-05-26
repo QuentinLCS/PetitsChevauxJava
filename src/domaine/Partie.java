@@ -195,7 +195,7 @@ public class Partie {
             }
             if (i==1){
                 victoire = true;
-                System.out.println("Bravo au joueur "+getJoueurs().get(j).getNom()+" ("+getJoueurs().get(j).getCouleur().getCodeCouleurFond()+"      \033[0m)");
+                System.out.println("Bravo au joueur "+getJoueurs().get(j).getNom()+" ("+getJoueurs().get(j).getCouleur().getCodeCouleurFond()+"      \033[0m) pour avoir gagné la partie !");
             }
         }
         return victoire;
