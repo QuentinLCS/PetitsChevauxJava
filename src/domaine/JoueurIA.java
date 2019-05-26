@@ -37,8 +37,15 @@ public class JoueurIA extends Joueur {
         for(int k=0; k<(4-nbChevauxVerifies); k++){
             Pion pion=getChevaux().get(k);
             if(getChevaux().get(k).getPosition() instanceof CaseDEchelle){
-                if (echelleJoueur.get(echelleJoueur.indexOf(pion.getPosition())+1).peutPasser(pion) && echelleJoueur.indexOf(pion.getPosition())+2== distance) { //Condition pour passer à la case d'échelle suivante
-                    chevauxDeplacables.add(pion);
+                if (pion.getPosition()!=echelleJoueur.get(5)){
+                    System.out.println("1");
+                    if ( echelleJoueur.get(echelleJoueur.indexOf(pion.getPosition())+1).peutPasser(pion) ){
+                        System.out.println("2");
+                        if ( echelleJoueur.indexOf(pion.getPosition())+2== distance) { //Condition pour passer à la case d'échelle suivante
+                            System.out.println("3");
+                            chevauxDeplacables.add(pion);
+                        }
+                    }
                 }
             }
             else if (pion.getPosition().equals(caseDevantEchelle) && distance==1) { //Condition pour monter sur l'échelle
@@ -46,12 +53,18 @@ public class JoueurIA extends Joueur {
             }
             else {
                 continuer=true;
-                i=1;
-                while (i<distance && continuer){
-                    continuer=plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+i)%56).peutPasser(pion);
-                    i++;
-                    if (plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+i)%56).equals(caseDevantEchelle)) continuer=false;
+                i=0;
+                while (i<distance-1 && continuer){
+                    try {
+                        i++;
+                        continuer=plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+i)%56).peutPasser(pion);
+                    }
+                    catch (ConflitDeCouleurException e){
+                        continuer=false;
+                    }
+                    if (plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+i)%56).equals(getCaseDeDepart())) continuer=false;
                 }
+                if (plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+distance)%56).equals(getCaseDeDepart())) continuer=false;
                 if (continuer) chevauxDeplacables.add(pion);
             }
         }

@@ -10,7 +10,7 @@ import java.util.Scanner;
 /**
  * Classe instaciable de la Partie.
  */
-public class Partie implements Serializable {
+public class Partie {
 
     private Random de = new Random() ;
     private Joueur joueurCourant;
@@ -153,10 +153,14 @@ public class Partie implements Serializable {
             int idCouleurJoueur = joueurCourant.getCouleur().getId();
             CaseEcurie ecurieDuJoueur = plateau.getEcuries().get(idCouleurJoueur);
             ArrayList<CaseDEchelle> echelleDuJoueur = plateau.getEchelles().get(idCouleurJoueur);
+            CaseDeChemin caseDevantEchelle = plateau.getChemin().get(plateau.getChemin().indexOf(joueurCourant.getCaseDeDepart())-1);
 
             if (ecurieDuJoueur.equals(choix.getPosition())){
                 arrivee = joueurCourant.getCaseDeDepart();
                 if(!(arrivee.getChevaux().isEmpty()) && arrivee.getChevaux().get(0).getCouleur()!=joueurCourant.getCouleur() ) mangerLesPions(arrivee);
+            }
+            else if (choix.getPosition().equals(caseDevantEchelle)){
+                arrivee = echelleDuJoueur.get(0);
             }
             else if (echelleDuJoueur.contains(choix.getPosition())) {
                 arrivee = echelleDuJoueur.get(echelleDuJoueur.indexOf(choix.getPosition()) + 1);
@@ -217,9 +221,10 @@ public class Partie implements Serializable {
      */
     private void mangerLesPions(Case cs){
         ArrayList<Pion> chevaux = cs.getChevaux();
+        int taille = chevaux.size();
         ArrayList<CaseEcurie> ecuries = getPlateau().getEcuries();
         CaseEcurie ecu = ecuries.get(chevaux.get(0).getCouleur().getId());
-        for (Pion pion:chevaux) getPlateau().deplacerPionA(pion, ecu);
+        for (int i=taille; i>0; i--) getPlateau().deplacerPionA(chevaux.get(i-1), ecu);
     }
 }
 

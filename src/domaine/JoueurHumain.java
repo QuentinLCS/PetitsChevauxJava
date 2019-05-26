@@ -63,12 +63,18 @@ public class JoueurHumain extends Joueur {
             }
             else {
                 continuer=true;
-                i=1;
-                while (i<distance && continuer){
-                    i++;
-                    continuer=plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+i)%56).peutPasser(pion);
-                    if (plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+i)%56).equals(caseDevantEchelle)) continuer=false;
+                i=0;
+                while (i<distance-1 && continuer){
+                    try {
+                        i++;
+                        continuer=plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+i)%56).peutPasser(pion);
+                    }
+                    catch (ConflitDeCouleurException e){
+                        continuer=false;
+                    }
+                    if (plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+i)%56).equals(getCaseDeDepart())) continuer=false;
                 }
+                if (plateau.getChemin().get((plateau.getChemin().indexOf(pion.getPosition())+distance)%56).equals(getCaseDeDepart())) continuer=false;
                 if (continuer) {
                     chevauxDeplacables.add(pion);
                     System.out.println(proposition + " : Bouger le pion n°" + (getChevaux().indexOf(pion)+1));
