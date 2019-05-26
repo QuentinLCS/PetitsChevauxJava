@@ -183,7 +183,7 @@ public class Partie {
      * Test les conditions de fin de partie. C'est à dire que les 4 pions d'une couleur sont sur les case d'échelle les plus hautes.
      * @return Retourne si la condition est validée ou non.
      */
-    public boolean estPartieTermine(){
+    public boolean estPartieTermine() throws InterruptedException {
         ArrayList<ArrayList<CaseDEchelle>> listeEchelles = getPlateau().getEchelles();
         boolean victoire = false;
         int i, j=-1;
@@ -196,6 +196,7 @@ public class Partie {
             if (i==1){
                 victoire = true;
                 System.out.println("Bravo au joueur "+getJoueurs().get(j).getNom()+" ("+getJoueurs().get(j).getCouleur().getCodeCouleurFond()+"      \033[0m) pour avoir gagné la partie !");
+                Thread.sleep(8000);
             }
         }
         return victoire;
