@@ -25,19 +25,21 @@ public class Partie implements Serializable {
      * - Nombre de Joueurs
      * - Initialisation des joueurs.
      */
-    public Partie() {
+    public Partie(boolean estUnScenario, boolean initialiser) {
+        byte nbJoueur = 0;
         this.initialiserPlateau();
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Veuillez entrer le nombre de joueurs de la partie (entre 1 et 4) : ");
-        byte nbJoueur = PetitsChevaux.choixMenu((byte)1, (byte)4);
-        initialiserJoueurs(nbJoueur);
+        if (!estUnScenario) {
+            System.out.print("Veuillez entrer le nombre de joueurs de la partie (entre 1 et 4) : ");
+            nbJoueur = PetitsChevaux.choixMenu((byte) 1, (byte) 4);
+        } if (initialiser) nbJoueur = 4;
+        initialiserJoueurs(nbJoueur, initialiser);
     }
 
     /**
      * Permet d'initialiser les instances de joueurs humains, leur assigne une couleur et choisir qui commence
      * @param nbJoueur Nombre de joueurs renseignés par le joueur dans le constructeur.
      */
-    public void initialiserJoueurs(int nbJoueur) {
+    public void initialiserJoueurs(int nbJoueur, boolean initaliser) {
         joueurs = new ArrayList<>(nbJoueur);
         ArrayList<Joueur> joueurs = new ArrayList<>(nbJoueur);
         if (nbJoueur <= 4) {
@@ -183,7 +185,7 @@ public class Partie implements Serializable {
         int i;
         for (ArrayList<CaseDEchelle> echelle : listeEchelles ){
             i=5;
-            while (i>1 && echelle.get(i).getChevaux()!=null){
+            while (i>1 && !echelle.get(i).getChevaux().isEmpty()){
                 i--;
             }
             if (i==1){

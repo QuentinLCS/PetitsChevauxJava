@@ -3,6 +3,7 @@ package domaine;
 import exceptions.ConflitDeCouleurException;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -65,7 +66,7 @@ public class PetitsChevaux {
         switch (saisie)
         {
             case 1 :
-                partie = new Partie();
+                partie = new Partie(false, true);
                 jouer = true;
                 break;
             case 2 :
@@ -122,24 +123,56 @@ public class PetitsChevaux {
         PetitsChevaux.clear();
         System.out.print(
                 "\n[SCENARIOS] A quel scenario souhaitez-vous acceder ?\n  " +
-                        "[1] ..\n  " +
-                        "[2] ..\n  " +
-                        "[3] ..\n  " +
-                        "[4] Retour\n\n" +
+                        "[1] Manger un pion\n  " +
+                        "[2] Monter Echelle\n  " +
+                        "[3] Victoire\n  " +
+                        "[4] BOT VS BOT\n  " +
+                        "[5] Retour\n\n" +
                         "Scenario [entrez une valeur]: ");
 
-        saisie = PetitsChevaux.choixMenu((byte)1, (byte)4);
+        saisie = PetitsChevaux.choixMenu((byte)1, (byte)5);
 
         switch (saisie)
         {
             case 1 :
-                PetitsChevaux.chargerPartie("scenario1.txt");
+                partie = new Partie(true, true);
+                jouer = true;
+                for (byte i = 0; i < 4; i++) {
+                    ArrayList<Pion> chevaux = partie.getJoueurs().get(i).getChevaux();
+                    for (byte j = 0; j < 4; j++) {
+                        Case caseCible = partie.getPlateau().getChemin().get(i+2);
+                        partie.getPlateau().deplacerPionA(chevaux.get(j), caseCible);
+                    }
+                }
                 break;
             case 2 :
-                PetitsChevaux.chargerPartie("scenario2.txt");
+                partie = new Partie(true, false);
+                jouer = true;
+                for (byte i = 0; i < 4; i++) {
+                    ArrayList<Pion> chevaux = partie.getJoueurs().get(i).getChevaux();
+                    for (byte j = 0; j < 4; j++) {
+                        int caseDepartIndex = partie.getPlateau().getChemin().indexOf(partie.getJoueurs().get(i).getCaseDeDepart());
+                        Case caseCible = partie.getPlateau().getChemin().get(caseDepartIndex-1);
+                        partie.getPlateau().deplacerPionA(chevaux.get(j), caseCible);
+                    }
+                }
                 break;
             case 3 :
-                PetitsChevaux.chargerPartie("scenario3.txt");
+                partie = new Partie(true, false);
+                jouer = true;
+                int indexCase;
+                for (byte i = 0; i < 4; i++) {
+                    indexCase = 3;
+                    ArrayList<Pion> chevaux = partie.getJoueurs().get(i).getChevaux();
+                    for (byte j = 0; j < 4; j++) {
+                        Case caseCible = partie.getPlateau().getEchelles().get(i).get(j == 0 ? 1 : indexCase++);
+                        partie.getPlateau().deplacerPionA(chevaux.get(j), caseCible);
+                    }
+                }
+                break;
+            case 4 :
+                partie = new Partie(true, false);
+                jouer = true;
                 break;
             default :
                 this.afficherOption();
