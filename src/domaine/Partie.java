@@ -10,7 +10,7 @@ import java.util.Scanner;
 /**
  * Classe instaciable de la Partie.
  */
-public class Partie {
+public class Partie implements Serializable {
 
     private Random de = new Random() ;
     private Joueur joueurCourant;
@@ -31,7 +31,7 @@ public class Partie {
         if (!estUnScenario) {
             System.out.print("Veuillez entrer le nombre de joueurs de la partie (entre 1 et 4) : ");
             nbJoueur = PetitsChevaux.choixMenu((byte) 1, (byte) 4);
-        } if (initialiser) nbJoueur = 4;
+        } if (initialiser && estUnScenario) nbJoueur = 4;
         initialiserJoueurs(nbJoueur, initialiser);
     }
 

@@ -27,11 +27,10 @@ public class PetitsChevaux {
                     partie.getPlateau().afficher();
                     partie.setJoueurCourant(joueur);
                     partie.jouerUnTour(true);
-                    Thread.sleep(30);
+                    Thread.sleep(3000);
                 }
                 if (partie.estPartieTermine())
                     jouer = false;
-                /*
                 else {
                     PetitsChevaux.sauvegarderPartie("last.txt");
                     System.out.println(
@@ -41,7 +40,6 @@ public class PetitsChevaux {
                                     "Continuer ? [entrez une valeur]: ");
                     if (PetitsChevaux.choixMenu((byte) 1, (byte) 2) == 2) jouer = false;
                 }
-                */
             }
         }
     }
@@ -160,7 +158,7 @@ public class PetitsChevaux {
                 }
                 break;
             case 3 :
-                partie = new Partie(true, false);
+                partie = new Partie(true, true);
                 jouer = true;
                 int indexCase;
                 for (byte i = 0; i < 4; i++) {
