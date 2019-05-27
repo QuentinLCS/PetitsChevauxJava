@@ -27,12 +27,12 @@ public class PetitsChevaux {
                     partie.getPlateau().afficher();
                     partie.setJoueurCourant(joueur);
                     partie.jouerUnTour(true);
+                    PetitsChevaux.sauvegarderPartie("last.txt");
                     Thread.sleep(3000);
                 }
                 if (partie.estPartieTermine())
                     jouer = false;
                 else {
-                    PetitsChevaux.sauvegarderPartie("last.txt");
                     System.out.println(
                             "Voulez-vous continuer la partie ?\n  " +
                                     "[1] Oui \n  " +
